@@ -251,31 +251,17 @@ function do_mirror() {
             // Add the current distance to the inline distance
             distance_inline = distance_inline + distance_current;
           } else {
-            // If we were not inside the specified area:
-            inline = true;
-
-            // Increment the crossings count (crossing into the specified area)
+            // Reset the drawing if not inline
+            inline = false;
             crossings = crossings + 1;
-            distance_inline = distance_inline + 0.5 * distance_current;
-            distance_offline = distance_offline + 0.5 * distance_current;
+            distance_inline = 0; // Reset inline distance
+            distance_offline = 0; // Reset offline distance
             ctx_mirror.beginPath();
             if (mirror) {
-              ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
+              ctx_mirror.moveTo(mywidth - xstart, myheight - ystart); // Reset mouse to the beginning
             } else {
-              ctx_mirror.moveTo(mouse.x, mouse.y);
+              ctx_mirror.moveTo(xstart, ystart); // Reset mouse to the beginning
             }
-          }
-        } else {
-          // Reset the drawing if not inline
-          inline = false;
-          crossings = crossings + 1;
-          distance_inline = 0; // Reset inline distance
-          distance_offline = 0; // Reset offline distance
-          ctx_mirror.beginPath();
-          if (mirror) {
-            ctx_mirror.moveTo(mywidth - xstart, myheight - ystart); // Reset mouse to the beginning
-          } else {
-            ctx_mirror.moveTo(xstart, ystart); // Reset mouse to the beginning
           }
         }
 
