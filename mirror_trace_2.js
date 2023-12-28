@@ -244,6 +244,26 @@ function do_mirror() {
 
         // Check to see where we are drawing based on color information of the pixel
         if (p[0] + p[1] + p[2] < 200) {
+          if (inline) {
+          } else {
+            inline = true;
+            ctx_mirror.beginPath();
+            if (mirror) {
+              ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
+            } else {
+              ctx_mirror.moveTo(mouse.x, mouse.y);
+            }
+          }
+        } else {
+          if (inline) {
+            inline = false;
+            ctx_mirror.beginPath();
+            if (mirror) {
+              ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
+            } else {
+              ctx_mirror.moveTo(mouse.x, mouse.y);
+            }
+          }
         }
 
         distance_total = distance_total + distance_current;
