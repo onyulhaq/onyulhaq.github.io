@@ -245,7 +245,6 @@ function do_mirror() {
         // Check to see where we are drawing based on color information of the pixel
         if (p[0] + p[1] + p[2] < 200) {
           if (inline) {
-          } else {
             inline = true;
             ctx_mirror.beginPath();
             if (mirror) {
@@ -255,15 +254,14 @@ function do_mirror() {
             }
           }
         } else {
-          if (inline) {
-            inline = false;
-            ctx_mirror.beginPath();
-            if (mirror) {
-              ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
-            } else {
-              ctx_mirror.moveTo(mouse.x, mouse.y);
-            }
+          // if moving outside the trace area
+          ctx_mirror.beginPath();
+          if (mirror) {
+            ctx_mirror.moveTo(mywidth - xstart, myheight - ystart);
+          } else {
+            ctx_mirror.moveTo(xstart, ystart);
           }
+          inline = true;
         }
 
         distance_total = distance_total + distance_current;
@@ -281,7 +279,10 @@ function do_mirror() {
         } else {
           ctx_mirror.lineTo(mouse.x, mouse.y);
         }
+
         ctx_mirror.stroke();
+
+        ///
         document.getElementById("status").innerHTML =
           "Score = " + Math.round(score * 100) + "% ";
         //document.getElementByID("status").innerHTML = p[0]+p[1]+p[2];
