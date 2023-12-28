@@ -244,32 +244,6 @@ function do_mirror() {
 
         // Check to see where we are drawing based on color information of the pixel
         if (p[0] + p[1] + p[2] < 200) {
-          if (inline) {
-            distance_inline = distance_inline + distance_current;
-          } else {
-            inline = true;
-            crossings = crossings + 1;
-            distance_inline = distance_inline + 0.5 * distance_current;
-            distance_offline = distance_offline + 0.5 * distance_current;
-            ctx_mirror.beginPath();
-            if (mirror) {
-              ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
-            } else {
-              ctx_mirror.moveTo(mouse.x, mouse.y);
-            }
-          }
-        } else {
-          // Reset the drawing if not inline
-          inline = false;
-          crossings = crossings + 1;
-          distance_inline = 0; // Reset inline distance
-          distance_offline = 0; // Reset offline distance
-          ctx_mirror.beginPath();
-          if (mirror) {
-            ctx_mirror.moveTo(mywidth - xstart, myheight - ystart); // Reset mouse to the beginning
-          } else {
-            ctx_mirror.moveTo(xstart, ystart); // Reset mouse to the beginning
-          }
         }
 
         distance_total = distance_total + distance_current;
