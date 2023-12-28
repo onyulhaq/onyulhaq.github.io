@@ -72,45 +72,70 @@ var currentRefresh = 0;
 function do_mirror() {
   //load materials
   var imagePath = materials.file_names[trialnumber];
+  // Whether or not not to use the mirror function
   mirror = materials.mirror[trialnumber];
+  //
   var xstart = materials.xstarts[trialnumber];
   var ystart = materials.ystarts[trialnumber];
+
   var startRadius = 15;
+
   var xend = materials.xends[trialnumber];
   var yend = materials.yends[trialnumber];
+
   var endRadius = 7;
 
   //states to track
   drawing = false;
   finished = false;
+
   score = 0;
+
   timeDiff = 0;
   timeFinished = 0;
+
   var inline = false;
   crossings = 0;
+
   distance_total = 0;
   distance_current = 0;
+
   distance_inline = 0;
   distance_offline = 0;
+
   startTime = 0;
   endTime = 0;
+
   lastRefresh = 0;
   currentRefresh = 0;
 
   //drawing contexts for cursor area and mirrored area
   canvas = document.querySelector("#paint");
+
   ctx = canvas.getContext("2d");
+
   canvas_mirror = document.querySelector("#mirror");
+
   ctx_mirror = canvas_mirror.getContext("2d");
 
   //load the image to trace
+  //cREATE INSTANCE
   var imageObj = new Image();
+
+  // One the pictures is loaded do the followings things:
+  //
   imageObj.onload = function () {
+    // 1. Where should we put the image on the canvas and how big it should be
     ctx_mirror.drawImage(imageObj, 0, 0, mywidth, myheight);
+
+    //2 . transparency of the images
     ctx_mirror.globalAlpha = 0.4;
     ctx.globalAlpha = 0.4;
 
+    // Begin Path - start a new
     ctx.beginPath();
+
+    // Arc tells it to draw a circle with those componenets
     if (mirror) {
       ctx.arc(xstart, ystart, startRadius, 0, 2 * Math.PI, false);
     } else {
@@ -120,9 +145,11 @@ function do_mirror() {
     ctx.fill();
     ctx_mirror.globalAlpha = 1;
     ctx.globalAlpha = 1;
+
     document.getElementById("status").innerHTML =
       "Click the green circle to begin this trial";
   };
+
   imageObj.crossOrigin = "anonymous";
   imageObj.src = imagePath;
 
@@ -145,6 +172,7 @@ function do_mirror() {
       mouse.y = e.pageY - this.offsetTop;
 
       //update status
+      // This gets us better coordinates/ For example different browsers might give different coordinates. Put the cooridinations from
       var pos = betterPos(canvas, e);
       //var pos = findPos(this);
       //var x = e.pageX - pos.x;
@@ -174,13 +202,20 @@ function do_mirror() {
       }
       var hex = "#" + ("000000" + rgbToHex(p[0], p[1], p[2])).slice(-6);
 
+      // This code is checking whether the mouse is close enough to the end point to consider the drawing finished. Let's break it down:
+
+      //This calculates the distance between the current mouse position (mouse.x and mouse.y) and the end point (xend and yend) using the Pythagorean theorem.
       var cendRadius = Math.sqrt(
         Math.pow(mouse.x - xend, 2) + Math.pow(mouse.y - yend, 2)
       );
+
+      //If the calculated distance (cendRadius) is less than a specified end radius (endRadius), it means the mouse is close enough to the end poin
       if (cendRadius < endRadius) {
+        // If we were in the process of drawing (drawing is true), meaning the user was actively drawing:
         if (drawing) {
           drawing = false;
           finished = true;
+          // If the option to save the trace is enabled (saveTrace is true), it calls a function (saveCanvas) to save the canvas. This is likely to capture the drawn trace for future reference or analysis.
           if (saveTrace) {
             saveCanvas();
             //call save function
@@ -191,20 +226,35 @@ function do_mirror() {
       //do drawing if in drawing mode
       if (drawing) {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
+          // If the mouse has actually moved (not standing still):
+
+          // Calculate the distance traveled by the mouse
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
               Math.pow(mouseold.y - mouse.y, 2)
           );
         } else {
+          // If the mouse is not moving (standing still):
           distance_current = 0;
         }
 
         //check to see where we are drawing
+
+        // Check to see where we are drawing based on color information of the pixel
+
         if (p[0] + p[1] + p[2] < 200) {
+          // If the sum of Red, Green, and Blue color components is less than 200 (indicating a dark color):
+
           if (inline) {
+            // If we were already inside the specified area:
+
+            // Add the current distance to the inline distance
             distance_inline = distance_inline + distance_current;
           } else {
+            // If we were not inside the specified area:
             inline = true;
+
+            // Increment the crossings count (crossing into the specified area)
             crossings = crossings + 1;
             distance_inline = distance_inline + 0.5 * distance_current;
             distance_offline = distance_offline + 0.5 * distance_current;
@@ -216,19 +266,16 @@ function do_mirror() {
             }
           }
         } else {
-          if (inline) {
-            inline = false;
-            crossings = crossings + 1;
-            distance_inline = distance_inline + 0.5 * distance_current;
-            distance_offline = distance_offline + 0.5 * distance_current;
-            ctx_mirror.beginPath();
-            if (mirror) {
-              ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
-            } else {
-              ctx_mirror.moveTo(mouse.x, mouse.y);
-            }
+          // Reset the drawing if not inline
+          inline = false;
+          crossings = crossings + 1;
+          distance_inline = 0; // Reset inline distance
+          distance_offline = 0; // Reset offline distance
+          ctx_mirror.beginPath();
+          if (mirror) {
+            ctx_mirror.moveTo(mywidth - xstart, myheight - ystart); // Reset mouse to the beginning
           } else {
-            distance_offline = distance_offline + distance_current;
+            ctx_mirror.moveTo(xstart, ystart); // Reset mouse to the beginning
           }
         }
 
@@ -237,6 +284,7 @@ function do_mirror() {
         endTime = new Date();
         timeDiff = (endTime - startTime) / 1000;
 
+        //Change the colers of the line when it inline and when it's out of line
         if (inline) {
           ctx_mirror.strokeStyle = "red";
         } else {
