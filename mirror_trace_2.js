@@ -14,6 +14,35 @@
 // currently this displays 3 difficult trials (h1, h2, and h3) and 3 regular trials (4, 5, 6)
 // the images posted on github all have the same total line length and 15 segments
 
+
+
+
+
+/* The following event listener moves the image pointer
+with respect to the actual mouse cursor
+The function is triggered every time mouse is moved */
+
+// Initialize mouse cooridinate variables
+// This will allow the image of the mouse pointer to follow where the actual cursor is
+
+let x, y;
+
+let px, py;
+px = py = 0;
+
+
+window.addEventListener("mousemove", function (e) {
+  // Gets the x,y position of the mouse cursor
+  x = e.clientX;
+  y = e.clientY;
+  // sets the image cursor to new relative position
+  // "cursor" is an element in the html 
+  cursor.style.left = px + x + "px";
+  cursor.style.top = py + y + "px";
+});
+
+
+
 var materials = {
   mirror: [false, true, true, true, true, true, true, true],
   file_names: [
@@ -114,42 +143,47 @@ function do_mirror() {
 
   ctx = canvas.getContext("2d");
 
+
   canvas_mirror = document.querySelector("#mirror");
 
   ctx_mirror = canvas_mirror.getContext("2d");
 
+
+
   //load the image to trace
-  //cREATE INSTANCE
+  // Create instance of an images
   var imageObj = new Image();
-
-  // One the pictures is loaded do the followings things:
-  //
+  //".onload" - do this when immediately when the page loads
   imageObj.onload = function () {
-    // 1. Where should we put the image on the canvas and how big it should be
-    ctx_mirror.drawImage(imageObj, 0, 0, mywidth, myheight);
+    ctx_mirror.drawImage(imageObj, // Image
+      dx = 0,
+      dy = 0,
+      dWidth = mywidth,
+      dHeight = myheight);
 
-    //2 . transparency of the images
-    ctx_mirror.globalAlpha = 0.4;
-    ctx.globalAlpha = 0.4;
 
-    // Begin Path - start a new
+
+    ctx_mirror.globalAlpha = 0.9;
+    ctx.globalAlpha = 0.9;
+
+    // Begins a Path
     ctx.beginPath();
 
-    // Arc tells it to draw a circle with those componenets
+    //
     if (mirror) {
       ctx.arc(xstart, ystart, startRadius, 0, 2 * Math.PI, false);
     } else {
       ctx.arc(xstart, ystart, startRadius, 0, 2 * Math.PI, false);
-    }
+    };
+
     ctx.fillStyle = "green";
     ctx.fill();
     ctx_mirror.globalAlpha = 1;
     ctx.globalAlpha = 1;
-
     document.getElementById("status").innerHTML =
       "Click the green circle to begin this trial";
-  };
 
+  };
   imageObj.crossOrigin = "anonymous";
   imageObj.src = imagePath;
 
@@ -157,393 +191,14 @@ function do_mirror() {
   var mouse = { x: 0, y: 0 };
   var mouseold = { x: 0, y: 0 };
 
+
   /* Drawing on Paint App */
   ctx_mirror.lineWidth = 1.2;
   ctx_mirror.lineJoin = "round";
   ctx_mirror.lineCap = "round";
   ctx_mirror.strokeStyle = "blue";
 
-  /* Mouse Capturing Work */
-  canvas.addEventListener(
-    "mousemove",
-    function (e) {
-      //get mouse coordinates
-      mouse.x = e.pageX - this.offsetLeft;
-      mouse.y = e.pageY - this.offsetTop;
 
-      //update status
-      // This gets us better coordinates/ For example different browsers might give different coordinates. Put the cooridinations from
-      var pos = betterPos(canvas, e);
-      //var pos = findPos(this);
-      //var x = e.pageX - pos.x;
-      //var y = e.pageY - pos.y;
-      var x = pos.x;
-      var y = pos.y;
-      mouse.x = x;
-      mouse.y = y;
 
-      //document.getElementById("status").innerHTML = "x = " + x + " y = " + y + " mousex = " + mouse.x + " mousey = " + mouse.y;
-
-      if (mirror) {
-        var coord = "x=" + (mywidth - x) + ", y=" + (myheight - y);
-      } else {
-        var coord = "x=" + x + ", y=" + y;
-      }
-
-      if (mirror) {
-        var p = ctx_mirror.getImageData(
-          mywidth - mouse.x,
-          myheight - mouse.y,
-          1,
-          1
-        ).data;
-      } else {
-        var p = ctx_mirror.getImageData(mouse.x, mouse.y, 1, 1).data;
-      }
-      var hex = "#" + ("000000" + rgbToHex(p[0], p[1], p[2])).slice(-6);
-
-      // This code is checking whether the mouse is close enough to the end point to consider the drawing finished. Let's break it down:
-
-      //This calculates the distance between the current mouse position (mouse.x and mouse.y) and the end point (xend and yend) using the Pythagorean theorem.
-      var cendRadius = Math.sqrt(
-        Math.pow(mouse.x - xend, 2) + Math.pow(mouse.y - yend, 2)
-      );
-
-      //If the calculated distance (cendRadius) is less than a specified end radius (endRadius), it means the mouse is close enough to the end poin
-      if (cendRadius < endRadius) {
-        // If we were in the process of drawing (drawing is true), meaning the user was actively drawing:
-        if (drawing) {
-          drawing = false;
-          finished = true;
-          // If the option to save the trace is enabled (saveTrace is true), it calls a function (saveCanvas) to save the canvas. This is likely to capture the drawn trace for future reference or analysis.
-          if (saveTrace) {
-            saveCanvas();
-            //call save function
-          }
-        }
-      }
-
-      //do drawing if in drawing mode
-      if (drawing) {
-        if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
-          // If the mouse has actually moved (not standing still):
-
-          // Calculate the distance traveled by the mouse
-          distance_current = Math.sqrt(
-            Math.pow(mouseold.x - mouse.x, 2) +
-              Math.pow(mouseold.y - mouse.y, 2)
-          );
-        } else {
-          // If the mouse is not moving (standing still):
-          distance_current = 0;
-        }
-
-        //check to see where we are drawing
-
-        // Check to see where we are drawing based on color information of the pixel
-
-        // Check to see where we are drawing based on color information of the pixel
-        if (p[0] + p[1] + p[2] < 200) {
-          if (inline) {
-            inline = true;
-            ctx_mirror.beginPath();
-            if (mirror) {
-              ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
-            } else {
-              ctx_mirror.moveTo(mouse.x, mouse.y);
-            }
-          }
-        } else {
-          // if moving outside the trace area
-          ctx_mirror.beginPath();
-          if (mirror) {
-            ctx_mirror.moveTo(mywidth - xstart, myheight - ystart);
-          } else {
-            ctx_mirror.moveTo(xstart, ystart);
-          }
-          inline = true;
-        }
-
-        distance_total = distance_total + distance_current;
-        score = distance_inline / distance_total;
-        endTime = new Date();
-        timeDiff = (endTime - startTime) / 1000;
-
-        //Change the colers of the line when it inline and when it's out of line
-        if (inline) {
-          ctx_mirror.strokeStyle = "red";
-        }
-
-        if (mirror) {
-          ctx_mirror.lineTo(mywidth - mouse.x, myheight - mouse.y);
-        } else {
-          ctx_mirror.lineTo(mouse.x, mouse.y);
-        }
-
-        ctx_mirror.stroke();
-
-        ///
-        document.getElementById("status").innerHTML =
-          "Score = " + Math.round(score * 100) + "% ";
-        //document.getElementByID("status").innerHTML = p[0]+p[1]+p[2];
-      } else {
-        if (!finished) {
-          currentRefresh = new Date();
-          if (currentRefresh - lastRefresh > 1000 / 30) {
-            ctx_mirror.drawImage(imageObj, 0, 0, mywidth, myheight);
-
-            ctx_mirror.fillStyle = "green";
-            ctx_mirror.globalAlpha = 0.4;
-            //ctx_mirror.beginPath();
-            if (mirror) {
-              //	ctx_mirror.arc(mywidth - xstart, myheight - ystart, startRadius, 0, 2 * Math.PI, false);
-            } else {
-              //	ctx_mirror.arc(xstart, ystart, startRadius, 0, 2 * Math.PI, false);
-            }
-            // ctx_mirror.fill();
-            ctx_mirror.globalAlpha = 1;
-
-            ctx_mirror.beginPath();
-            if (mirror) {
-              ctx_mirror.arc(
-                mywidth - mouse.x,
-                myheight - mouse.y,
-                4,
-                0,
-                2 * Math.PI,
-                false
-              );
-            } else {
-              ctx_mirror.arc(mouse.x, mouse.y, 4, 0, 2 * Math.PI, false);
-            }
-            ctx_mirror.fillStyle = "green";
-            ctx_mirror.fill();
-            lastRefresh = currentRefresh;
-            document.getElementById("status").innerHTML =
-              "Click the green circle to begin this trial";
-          }
-        } else {
-          document.getElementById("status").innerHTML =
-            "Finished with score = " +
-            Math.round(score * 100) +
-            "%<BR> Click next to continue.";
-        }
-      }
-
-      //store current coordinates
-      mouseold.x = mouse.x;
-      mouseold.y = mouse.y;
-    },
-    false
-  );
-
-  canvas.addEventListener(
-    "mousedown",
-    function (e) {
-      var currentRadius = Math.sqrt(
-        Math.pow(mouse.x - xstart, 2) + Math.pow(mouse.y - ystart, 2)
-      );
-
-      if (!finished) {
-        if (drawing) {
-          //drawing = false;
-          //finished = true;
-          //if (saveTrace) {
-          //	saveCanvas();
-          //call save function
-          //savecanvas(canvas_mirror.toDataURL())
-          //}
-        } else {
-          if (currentRadius < startRadius) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx_mirror.drawImage(imageObj, 0, 0, mywidth, myheight);
-            ctx_mirror.fillStyle = "red";
-            ctx_mirror.globalAlpha = 0.4;
-            ctx_mirror.beginPath();
-            if (mirror) {
-              ctx_mirror.arc(
-                mywidth - xend,
-                myheight - yend,
-                endRadius,
-                0,
-                2 * Math.PI,
-                false
-              );
-            } else {
-              ctx_mirror.arc(xend, yend, endRadius, 0, 2 * Math.PI, false);
-            }
-            ctx_mirror.fill();
-            ctx_mirror.globalAlpha = 1;
-
-            drawing = true;
-            finished = false;
-            startTime = new Date();
-            ctx_mirror.beginPath();
-            if (mirror) {
-              ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
-            } else {
-              ctx_mirror.moveTo(mouse.x, mouse.y);
-            }
-          }
-        }
-      }
-    },
-    false
-  );
-
-  var onPaint = function () {
-    if (mirror) {
-      ctx_mirror.lineTo(mywidth - mouse.x, myheight - mouse.y);
-    } else {
-      ctx_mirror.lineTo(mouse.x, mouse.y);
-    }
-    ctx_mirror.stroke();
-  };
-
-  function betterPos(canvas, evt) {
-    var rect = canvas.getBoundingClientRect();
-    return {
-      x: evt.clientX - rect.left,
-      y: evt.clientY - rect.top,
-    };
-  }
-
-  function findPos(obj) {
-    var curleft = 0,
-      curtop = 0;
-    //document.getElementById("status").innerHTML = "Find pos: ";
-
-    if (obj.offsetParent) {
-      do {
-        curleft += obj.offsetLeft;
-        curtop += obj.offsetTop;
-        document.getElementById("status").innerHTML +=
-          obj.id + " Left: " + obj.offsetLeft + "Top: " + obj.offsetTop + " / ";
-      } while ((obj = obj.offsetParent));
-      return { x: curleft, y: curtop };
-    }
-    return undefined;
-  }
-
-  function rgbToHex(r, g, b) {
-    if (r > 255 || g > 255 || b > 255) throw "Invalid color component";
-    return ((r << 16) | (g << 8) | b).toString(16);
-  }
-
-  function saveCanvas() {
-    // Get the canvas screenshot as PNG
-    var screenshot = Canvas2Image.saveAsPNG(canvas_mirror, true);
-
-    // This is a little trick to get the SRC attribute from the generated <img> screenshot
-    canvas_mirror.parentNode.appendChild(screenshot);
-    screenshot.id = "canvasimage";
-    data = screenshot.src;
-    canvas_mirror.parentNode.removeChild(screenshot);
-
-    // Send the screenshot to PHP to save it on the server
-    var url = saveScript;
-
-    jQuery.ajax({
-      type: "POST",
-      url: url,
-      dataType: "text",
-      data: {
-        id: MID,
-        trial: trialnumber,
-        score: score,
-        distance_inline: distance_inline,
-        distance_offline: distance_offline,
-        timeDiff: timeDiff,
-        crossings: crossings,
-        base64data: data,
-      },
-    });
-  }
 }
 
-// ... (existing code)
-
-var drawingInsideLines = true; // Add this variable to keep track of drawing inside lines
-
-// ... (existing code)
-
-canvas.addEventListener(
-  "mousemove",
-  function (e) {
-    // ... (existing code)
-
-    // Check if the participant is drawing outside the lines
-    if (!drawingInsideLines) {
-      // If drawing outside lines, reset the drawing
-      ctx_mirror.clearRect(0, 0, mywidth, myheight);
-      ctx_mirror.drawImage(imageObj, 0, 0, mywidth, myheight);
-      ctx_mirror.fillStyle = "red";
-      ctx_mirror.globalAlpha = 0.4;
-      ctx_mirror.beginPath();
-      if (mirror) {
-        ctx_mirror.arc(
-          mywidth - xend,
-          myheight - yend,
-          endRadius,
-          0,
-          2 * Math.PI,
-          false
-        );
-      } else {
-        ctx_mirror.arc(xend, yend, endRadius, 0, 2 * Math.PI, false);
-      }
-      ctx_mirror.fill();
-      ctx_mirror.globalAlpha = 1;
-
-      drawingInsideLines = true;
-      startTime = new Date();
-      ctx_mirror.beginPath();
-      if (mirror) {
-        ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
-      } else {
-        ctx_mirror.moveTo(mouse.x, mouse.y);
-      }
-    }
-
-    // ... (existing code)
-
-    if (inline) {
-      ctx_mirror.strokeStyle = "red";
-    } else {
-      ctx_mirror.strokeStyle = "blue";
-    }
-
-    if (mirror) {
-      ctx_mirror.lineTo(mywidth - mouse.x, myheight - mouse.y);
-    } else {
-      ctx_mirror.lineTo(mouse.x, mouse.y);
-    }
-    ctx_mirror.stroke();
-    document.getElementById("status").innerHTML =
-      "Score = " + Math.round(score * 100) + "% ";
-  },
-  false
-);
-
-canvas.addEventListener(
-  "mousedown",
-  function (e) {
-    // ... (existing code)
-
-    if (currentRadius < startRadius) {
-      // ... (existing code)
-
-      drawingInsideLines = true; // Reset drawing inside lines
-      startTime = new Date();
-      ctx_mirror.beginPath();
-      if (mirror) {
-        ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
-      } else {
-        ctx_mirror.moveTo(mouse.x, mouse.y);
-      }
-    }
-  },
-  false
-);
-
-// ... (existing code)
