@@ -14,10 +14,6 @@
 // currently this displays 3 difficult trials (h1, h2, and h3) and 3 regular trials (4, 5, 6)
 // the images posted on github all have the same total line length and 15 segments
 
-
-
-
-
 /* The following event listener moves the image pointer
 with respect to the actual mouse cursor
 The function is triggered every time mouse is moved */
@@ -25,23 +21,20 @@ The function is triggered every time mouse is moved */
 // Initialize mouse cooridinate variables
 // This will allow the image of the mouse pointer to follow where the actual cursor is
 
-let x, y;
+// let x, y;
 
-let px, py;
-px = py = 0;
+// let px, py;
+// px = py = 0;
 
-
-window.addEventListener("mousemove", function (e) {
-  // Gets the x,y position of the mouse cursor
-  x = e.clientX;
-  y = e.clientY;
-  // sets the image cursor to new relative position
-  // "cursor" is an element in the html 
-  cursor.style.left = px + x + "px";
-  cursor.style.top = py + y + "px";
-});
-
-
+// window.addEventListener("mousemove", function (e) {
+//   // Gets the x,y position of the mouse cursor
+//   x = e.clientX;
+//   y = e.clientY;
+//   // sets the image cursor to new relative position
+//   // "cursor" is an element in the html
+//   cursor.style.left = px + x + "px";
+//   cursor.style.top = py + y + "px";
+// });
 
 var materials = {
   mirror: [false, true, true, true, true, true, true, true],
@@ -143,25 +136,22 @@ function do_mirror() {
 
   ctx = canvas.getContext("2d");
 
-
   canvas_mirror = document.querySelector("#mirror");
 
   ctx_mirror = canvas_mirror.getContext("2d");
-
-
 
   //load the image to trace
   // Create instance of an images
   var imageObj = new Image();
   //".onload" - do this when immediately when the page loads
   imageObj.onload = function () {
-    ctx_mirror.drawImage(imageObj, // Image
-      dx = 0,
-      dy = 0,
-      dWidth = mywidth,
-      dHeight = myheight);
-
-
+    ctx_mirror.drawImage(
+      imageObj, // Image
+      (dx = 0),
+      (dy = 0),
+      (dWidth = mywidth),
+      (dHeight = myheight)
+    );
 
     ctx_mirror.globalAlpha = 0.9;
     ctx.globalAlpha = 0.9;
@@ -174,7 +164,7 @@ function do_mirror() {
       ctx.arc(xstart, ystart, startRadius, 0, 2 * Math.PI, false);
     } else {
       ctx.arc(xstart, ystart, startRadius, 0, 2 * Math.PI, false);
-    };
+    }
 
     ctx.fillStyle = "green";
     ctx.fill();
@@ -182,7 +172,6 @@ function do_mirror() {
     ctx.globalAlpha = 1;
     document.getElementById("status").innerHTML =
       "Click the green circle to begin this trial";
-
   };
   imageObj.crossOrigin = "anonymous";
   imageObj.src = imagePath;
@@ -191,14 +180,184 @@ function do_mirror() {
   var mouse = { x: 0, y: 0 };
   var mouseold = { x: 0, y: 0 };
 
+  /* Drawing on Paint App */
+  ctx_mirror.lineWidth = 1.2;
+  ctx_mirror.lineJoin = "round";
+  ctx_mirror.lineCap = "round";
+  ctx_mirror.strokeStyle = "blue";
+  //defines data structure for mouse movement
+  var mouse = { x: 0, y: 0 };
+  var mouseold = { x: 0, y: 0 };
 
   /* Drawing on Paint App */
   ctx_mirror.lineWidth = 1.2;
   ctx_mirror.lineJoin = "round";
   ctx_mirror.lineCap = "round";
   ctx_mirror.strokeStyle = "blue";
+  /* Mouse Capturing Work */
+  canvas.addEventListener(
+    "mousemove",
+    function (e) {
+      //get mouse coordinates
+      mouse.x = e.pageX - this.offsetLeft;
+      mouse.y = e.pageY - this.offsetTop;
 
+      //update status
+      var pos = betterPos(canvas, e);
+      //var pos = findPos(this);
+      //var x = e.pageX - pos.x;
+      //var y = e.pageY - pos.y;
+      var x = pos.x;
+      var y = pos.y;
+      mouse.x = x;
+      mouse.y = y;
 
+      //document.getElementById("status").innerHTML = "x = " + x + " y = " + y + " mousex = " + mouse.x + " mousey = " + mouse.y;
 
+      if (mirror) {
+        var coord = "x=" + (mywidth - x) + ", y=" + (myheight - y);
+      } else {
+        var coord = "x=" + x + ", y=" + y;
+      }
+
+      if (mirror) {
+        var p = ctx_mirror.getImageData(
+          mywidth - mouse.x,
+          myheight - mouse.y,
+          1,
+          1
+        ).data;
+      } else {
+        var p = ctx_mirror.getImageData(mouse.x, mouse.y, 1, 1).data;
+      }
+      var hex = "#" + ("000000" + rgbToHex(p[0], p[1], p[2])).slice(-6);
+
+      var cendRadius = Math.sqrt(
+        Math.pow(mouse.x - xend, 2) + Math.pow(mouse.y - yend, 2)
+      );
+      if (cendRadius < endRadius) {
+        if (drawing) {
+          drawing = false;
+          finished = true;
+          if (saveTrace) {
+            saveCanvas();
+            //call save function
+          }
+        }
+      }
+
+      //do drawing if in drawing mode
+      if (drawing) {
+        if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
+          distance_current = Math.sqrt(
+            Math.pow(mouseold.x - mouse.x, 2) +
+              Math.pow(mouseold.y - mouse.y, 2)
+          );
+        } else {
+          distance_current = 0;
+        }
+
+        //check to see where we are drawing
+        if (p[0] + p[1] + p[2] < 200) {
+          if (inline) {
+            distance_inline = distance_inline + distance_current;
+          } else {
+            inline = true;
+            crossings = crossings + 1;
+            distance_inline = distance_inline + 0.5 * distance_current;
+            distance_offline = distance_offline + 0.5 * distance_current;
+            ctx_mirror.beginPath();
+            if (mirror) {
+              ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
+            } else {
+              ctx_mirror.moveTo(mouse.x, mouse.y);
+            }
+          }
+        } else {
+          if (inline) {
+            inline = false;
+            crossings = crossings + 1;
+            distance_inline = distance_inline + 0.5 * distance_current;
+            distance_offline = distance_offline + 0.5 * distance_current;
+            ctx_mirror.beginPath();
+            if (mirror) {
+              ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
+            } else {
+              ctx_mirror.moveTo(mouse.x, mouse.y);
+            }
+          } else {
+            distance_offline = distance_offline + distance_current;
+          }
+        }
+
+        distance_total = distance_total + distance_current;
+        score = distance_inline / distance_total;
+        endTime = new Date();
+        timeDiff = (endTime - startTime) / 1000;
+
+        if (inline) {
+          ctx_mirror.strokeStyle = "red";
+        } else {
+          ctx_mirror.strokeStyle = "blue";
+        }
+
+        if (mirror) {
+          ctx_mirror.lineTo(mywidth - mouse.x, myheight - mouse.y);
+        } else {
+          ctx_mirror.lineTo(mouse.x, mouse.y);
+        }
+        ctx_mirror.stroke();
+        document.getElementById("status").innerHTML =
+          "Score = " + Math.round(score * 100) + "% ";
+        //document.getElementByID("status").innerHTML = p[0]+p[1]+p[2];
+      } else {
+        if (!finished) {
+          currentRefresh = new Date();
+          if (currentRefresh - lastRefresh > 1000 / 30) {
+            ctx_mirror.drawImage(imageObj, 0, 0, mywidth, myheight);
+
+            ctx_mirror.fillStyle = "green";
+            ctx_mirror.globalAlpha = 0.4;
+            //ctx_mirror.beginPath();
+            if (mirror) {
+              //	ctx_mirror.arc(mywidth - xstart, myheight - ystart, startRadius, 0, 2 * Math.PI, false);
+            } else {
+              //	ctx_mirror.arc(xstart, ystart, startRadius, 0, 2 * Math.PI, false);
+            }
+            // ctx_mirror.fill();
+            ctx_mirror.globalAlpha = 1;
+
+            ctx_mirror.beginPath();
+            if (mirror) {
+              ctx_mirror.arc(
+                mywidth - mouse.x,
+                myheight - mouse.y,
+                4,
+                0,
+                2 * Math.PI,
+                false
+              );
+            } else {
+              ctx_mirror.arc(mouse.x, mouse.y, 4, 0, 2 * Math.PI, false);
+            }
+            ctx_mirror.fillStyle = "green";
+            ctx_mirror.fill();
+            lastRefresh = currentRefresh;
+            document.getElementById("status").innerHTML =
+              "Click the green circle to begin this trial";
+          }
+        } else {
+          document.getElementById("status").innerHTML =
+            "Finished with score = " +
+            Math.round(score * 100) +
+            "%<BR> Click next to continue.";
+        }
+      }
+
+      //store current coordinates
+      mouseold.x = mouse.x;
+      mouseold.y = mouse.y;
+    },
+    false
+  );
 }
-
