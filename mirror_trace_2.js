@@ -286,7 +286,7 @@ function do_mirror() {
 
         console.log({
           inline: inline,
-          condition: p[0] + p[1] + p[2],
+          on_image: p[0] + p[1] + p[2],
           distance_inline: distance_inline,
           distance_current: distance_current,
         });
@@ -294,16 +294,18 @@ function do_mirror() {
         //document.getElementByID("status").innerHTML = p[0]+p[1]+p[2]; This checks if the cursor is over the image lines. When the cursor is over the lines it sets the inline to true. This
         if (p[0] + p[1] + p[2] < 200) {
           if (inline) {
+            // Whenever we are on the image sum up how far the cursor is from the top left corner
             distance_inline = distance_inline + distance_current;
-            console.log({
-              distance_inline: distance_inline,
-              distance_current: distance_current,
-            });
           } else {
             inline = true;
             crossings = crossings + 1;
             distance_inline = distance_inline + 0.5 * distance_current;
             distance_offline = distance_offline + 0.5 * distance_current;
+            console.log({
+              distance_inline: distance_inline,
+              distance_offline: distance_offline,
+            });
+
             ctx_mirror.beginPath();
             if (mirror) {
               ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
