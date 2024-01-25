@@ -70,9 +70,8 @@ var saveTrace = false;
 var mywidth = 400;
 var myheight = 300;
 var audio = new Audio(
-  "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/audio_file.mp3"
+  "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/beep.mp3"
 );
-audio.play();
 var score = 0;
 var timeDiff = 0;
 var trialnumber = 0;
@@ -342,6 +341,7 @@ function do_mirror() {
           ctx_mirror.strokeStyle = "red";
         } else {
           ctx_mirror.strokeStyle = "blue";
+          audio.play();
           alert("You are off");
         }
 
