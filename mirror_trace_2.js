@@ -69,9 +69,13 @@ var saveTrace = false;
 //image dimensions
 var mywidth = 400;
 var myheight = 300;
-var audio = new Audio(
-  "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/beep.mp3"
-);
+var audio = new Audio();
+// Requests image
+audio.crossOrigin = "anonymous";
+// where to request the imgae from
+audio.src =
+  "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/beep.mp3";
+console.log(audio);
 var score = 0;
 var timeDiff = 0;
 var trialnumber = 0;
