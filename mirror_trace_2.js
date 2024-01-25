@@ -341,11 +341,6 @@ function do_mirror() {
           ctx_mirror.strokeStyle = "red";
         } else {
           ctx_mirror.strokeStyle = "blue";
-          // Requests image
-          audio.crossOrigin = "anonymous";
-          // where to request the imgae from
-          audio.src =
-            "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/beep.mp3";
           audio.play();
           alert("You are off");
         }
