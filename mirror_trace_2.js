@@ -71,10 +71,10 @@ var materials = {
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
   ],
-  xstarts: [47, 47, 47, 47, 47, 47, 47, 47, 47, 27, 40, 280, 27, 40, 280, 33],
-  ystarts: [256, 256, 256, 256, 256, 256, 256, 256, 275, 45, 276, 275, 45, 276, 250],
-  xends: [344, 344, 344, 344, 344, 344, 344, 344, 344, 344, 370, 368, 33, 370, 368, 33, 47],
-  yends: [260, 260, 260, 260, 260, 260, 260, 260, 260, 260, 260, 28, 267, 250, 28, 267, 250, 256],
+  xstarts: Array(15).fill(27),
+  ystarts: Array(15).fill(275),
+  xends: Array(15).fill(370),
+  yends: Array(15).fill(28),
 };
 
 //	'xstarts' : [47,	27,		40,		280,		40,		383,	352],
@@ -92,13 +92,13 @@ var saveTrace = false;
 //image dimensions
 var mywidth = 400;
 var myheight = 300;
+// Create function for audio  noice
 var audio = new Audio();
 // Requests image
 audio.crossOrigin = "anonymous";
 // where to request the imgae from
 audio.src =
   "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/beep.mp3";
-console.log(audio);
 var score = 0;
 var timeDiff = 0;
 var trialnumber = 0;
