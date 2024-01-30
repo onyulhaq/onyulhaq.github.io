@@ -41,12 +41,35 @@ var materials = {
   file_names: [
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/sample.png",
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh2.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh3.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial2.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial3.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/sample.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
   ],
   xstarts: [47, 27, 40, 280, 27, 40, 280, 33],
   ystarts: [256, 275, 45, 276, 275, 45, 276, 250],
@@ -281,7 +304,7 @@ function do_mirror() {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
-              Math.pow(mouseold.y - mouse.y, 2)
+            Math.pow(mouseold.y - mouse.y, 2)
           );
         }
 
