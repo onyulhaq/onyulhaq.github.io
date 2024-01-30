@@ -340,7 +340,8 @@ function do_mirror() {
         } else {
           if (inline) {
             inline = false;
-
+            audio.play();
+            alert("You are out of bounds");
             crossings = crossings + 1;
             distance_inline = distance_inline + 0.5 * distance_current;
             distance_offline = distance_offline + 0.5 * distance_current;
@@ -368,8 +369,6 @@ function do_mirror() {
           ctx_mirror.strokeStyle = "red";
         } else {
           ctx_mirror.strokeStyle = "blue";
-          audio.play();
-          alert("You are off");
         }
 
         if (mirror) {
