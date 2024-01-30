@@ -304,7 +304,7 @@ function do_mirror() {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
-            Math.pow(mouseold.y - mouse.y, 2)
+              Math.pow(mouseold.y - mouse.y, 2)
           );
         }
 
@@ -329,7 +329,6 @@ function do_mirror() {
             inline = true;
             crossings = crossings + 1;
             distance_inline = distance_inline + 0.5 * distance_current;
-            distance_offline = distance_offline + 0.5 * distance_current;
             ctx_mirror.beginPath();
             if (mirror) {
               ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
@@ -348,7 +347,6 @@ function do_mirror() {
               ctx_mirror.moveTo(mouse.x, mouse.y);
             }
           } else {
-            distance_offline = distance_offline + distance_current;
           }
         }
 
