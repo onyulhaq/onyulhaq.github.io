@@ -431,9 +431,7 @@ function do_mirror() {
           }
         } else {
           document.getElementById("status").innerHTML =
-            "Finished with score = " +
-            Math.round(score * 100) +
-            "%<BR> Click next to continue.";
+            "Finished with score = " + score + "<BR> Click next to continue.";
         }
       }
 
