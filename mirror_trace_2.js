@@ -40,10 +40,10 @@ var materials = {
   mirror: [false, true, true, true, true, true, true, true, true, , true, true],
   file_names: [
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/sample.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1.jpg",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1.jpg",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1.jpg",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1.jpg",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
@@ -71,8 +71,8 @@ var materials = {
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
   ],
-  xstarts: Array(15).fill(27),
-  ystarts: Array(15).fill(275),
+  xstarts: Array(15).fill(56),
+  ystarts: Array(15).fill(259),
   xends: Array(15).fill(370),
   yends: Array(15).fill(28),
 };
@@ -314,7 +314,7 @@ function do_mirror() {
         }
 
         //document.getElementByID("status").innerHTML = p[0]+p[1]+p[2]; This checks if the cursor is over the image lines. When the cursor is over the lines it sets the inline to true. This
-        if (p[0] + p[1] + p[2] < 200) {
+        if (p[0] + p[1] + p[2] < 450) {
           if (inline) {
             // Whenever we are on the image sum up how far the cursor is from the top left corner
             distance_inline = distance_inline + distance_current;
@@ -343,11 +343,12 @@ function do_mirror() {
           }
         }
         console.log({
+          "mouse.x": mouse.x,
+          "mouse.y": mouse.y,
           inline: inline,
+          p: p,
           on_image: p[0] + p[1] + p[2],
           distance_inline: distance_inline,
-          distance_current: distance_current,
-          distance_total: distance_total,
         });
 
         // distance_total how far we are from the top left corner summed up
@@ -359,19 +360,11 @@ function do_mirror() {
         endTime = new Date();
         timeDiff = (endTime - startTime) / 1000;
 
-        console.log({
-          inline: inline,
-          on_image: p[0] + p[1] + p[2],
-          distance_inline: distance_inline,
-          distance_current: distance_current,
-        });
-
         if (inline) {
           ctx_mirror.strokeStyle = "red";
         } else {
-          ctx_mirror.strokeStyle = "blue";
-          audio.play();
-          alert("You are out of bounds");
+          // audio.play();
+          // alert("You are out of bounds");
         }
 
         if (mirror) {
