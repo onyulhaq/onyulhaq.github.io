@@ -41,9 +41,9 @@ var materials = {
   file_names: [
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/sample.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1.jpg",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1.jpg",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1.jpg",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1.jpg",
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
