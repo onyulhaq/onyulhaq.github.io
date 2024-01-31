@@ -313,13 +313,6 @@ function do_mirror() {
           distance_current = 0;
         }
 
-        console.log({
-          inline: inline,
-          on_image: p[0] + p[1] + p[2],
-          distance_inline: distance_inline,
-          distance_current: distance_current,
-        });
-
         //document.getElementByID("status").innerHTML = p[0]+p[1]+p[2]; This checks if the cursor is over the image lines. When the cursor is over the lines it sets the inline to true. This
         if (p[0] + p[1] + p[2] < 200) {
           if (inline) {
@@ -349,15 +342,29 @@ function do_mirror() {
           } else {
           }
         }
+        console.log({
+          inline: inline,
+          on_image: p[0] + p[1] + p[2],
+          distance_inline: distance_inline,
+          distance_current: distance_current,
+          distance_total: distance_total,
+        });
 
         // distance_total how far we are from the top left corner summed up
         //distance inline -
         //score - proportion of the mousemovement spent on tracing the image
         // distance inline = cursor.distance
         distance_total = distance_total + distance_current;
-        score = distance_inline / distance_total;
+        score = distance_inline;
         endTime = new Date();
         timeDiff = (endTime - startTime) / 1000;
+
+        console.log({
+          inline: inline,
+          on_image: p[0] + p[1] + p[2],
+          distance_inline: distance_inline,
+          distance_current: distance_current,
+        });
 
         if (inline) {
           ctx_mirror.strokeStyle = "red";
@@ -374,7 +381,7 @@ function do_mirror() {
         }
         ctx_mirror.stroke();
         document.getElementById("status").innerHTML =
-          "Score = " + Math.round(score * 100) + "% ";
+          "Score = " + Math.round(score);
         //document.getElementByID("status").innerHTML = p[0]+p[1]+p[2];
       }
 
