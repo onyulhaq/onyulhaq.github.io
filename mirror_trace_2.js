@@ -37,24 +37,48 @@ The function is triggered every time mouse is moved */
 // });
 
 var materials = {
-  mirror: [false, true, true, true, true, true, true, true, true, , true, true],
+  mirror: [
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+  ],
   file_names: [
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/sample.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trialh1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
@@ -73,14 +97,17 @@ var materials = {
   ],
   xstarts: Array(15).fill(56),
   ystarts: Array(15).fill(259),
-  xends: Array(15).fill(370),
-  yends: Array(15).fill(28),
+  xends: Array(15).fill(365),
+  yends: Array(15).fill(252),
 };
 
 //	'xstarts' : [47,	27,		40,		280,		40,		383,	352],
 //		'ystarts' : [256,	275,	45,		276,		45,		265,	28],
 //		'xends' :   [344,	370,	368,	33,			368,	28,		35],
 //		'yends' :    [260,	28,		267,	250,		267,	15,		175]
+
+// Detect how far a mouse has traveled
+////https://stackoverflow.com/questions/8686619/how-can-i-detect-the-distance-that-the-users-mouse-has-moved
 
 //for saving screenshots
 // the script can save screenshots of completed trials.
@@ -129,7 +156,7 @@ function do_mirror() {
   var xstart = materials.xstarts[trialnumber];
   var ystart = materials.ystarts[trialnumber];
 
-  var startRadius = 15;
+  var startRadius = 10;
 
   var xend = materials.xends[trialnumber];
   var yend = materials.yends[trialnumber];
