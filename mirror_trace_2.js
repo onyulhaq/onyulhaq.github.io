@@ -390,8 +390,8 @@ function do_mirror() {
         if (inline) {
           ctx_mirror.strokeStyle = "red";
         } else {
-          // audio.play();
-          // alert("You are out of bounds");
+          audio.play();
+          alert("You are out of bounds");
         }
 
         if (mirror) {
