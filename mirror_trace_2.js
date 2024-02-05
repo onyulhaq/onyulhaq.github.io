@@ -94,6 +94,7 @@ var materials = {
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
   ],
   xstarts: Array(15).fill(56),
   ystarts: Array(15).fill(259),
