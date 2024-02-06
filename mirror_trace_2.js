@@ -332,7 +332,7 @@ function do_mirror() {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
-              Math.pow(mouseold.y - mouse.y, 2)
+            Math.pow(mouseold.y - mouse.y, 2)
           );
         }
 
@@ -346,7 +346,8 @@ function do_mirror() {
           if (inline) {
             // Whenever we are on the image sum up how far the cursor is from the top left corner
             distance_inline = distance_inline + distance_current;
-          } else {
+          }
+          else {
             inline = true;
             crossings = crossings + 1;
             distance_inline = distance_inline + 0.5 * distance_current;
@@ -357,18 +358,20 @@ function do_mirror() {
               ctx_mirror.moveTo(mouse.x, mouse.y);
             }
           }
-        } else {
+        }
+        else {
           if (inline) {
             inline = false;
-            crossings = crossings + 1;
-            ctx_mirror.beginPath();
-            if (mirror) {
-              ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
-            } else {
-              ctx_mirror.moveTo(mouse.x, mouse.y);
-            }
-          } else {
+            // crossings = crossings + 1;
+            // ctx_mirror.beginPath();
+            // if (mirror) {
+            //   ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
+            // } else {
+            //   ctx_mirror.moveTo(mouse.x, mouse.y);
+            // }
           }
+          // else {
+          // }
         }
         console.log({
           "mouse.x": mouse.x,
@@ -478,13 +481,12 @@ function do_mirror() {
 
       if (!finished) {
         if (drawing) {
-          //drawing = false;
-          //finished = true;
-          //if (saveTrace) {
-          //	saveCanvas();
-          //call save function
-          //savecanvas(canvas_mirror.toDataURL())
-          //}
+          // drawing = false;
+          // finished = true;
+          // if (saveTrace) {
+          // 	saveCanvas();
+          // call save function
+          // savecanvas(canvas_mirror.toDataURL())
         } else {
           if (currentRadius < startRadius) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
