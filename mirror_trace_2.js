@@ -21,6 +21,7 @@ The function is triggered every time mouse is moved */
 // Initialize mouse cooridinate variables
 // This will allow the image of the mouse pointer to follow where the actual cursor is
 
+
 // let x, y;
 
 // let px, py;
@@ -61,7 +62,23 @@ var materials = {
     true,
     true,
     true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
   ],
+
+
+  //Create Tracing Images on this website: https://fffuel.co/llline/
+  // Convert the SVG to PNG here: chttps://svgtopng.com/
+  // Add a white background to the image here: https://www.photoroom.com/tools/white-background
   file_names: [
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/sample.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
@@ -79,22 +96,22 @@ var materials = {
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
   ],
   xstarts: Array(15).fill(56),
   ystarts: Array(15).fill(259),
@@ -362,7 +379,7 @@ function do_mirror() {
         else {
           if (inline) {
             inline = false;
-            // crossings = crossings + 1;
+            crossings = crossings + 1;
             // ctx_mirror.beginPath();
             // if (mirror) {
             //   ctx_mirror.moveTo(mywidth - mouse.x, myheight - mouse.y);
@@ -394,8 +411,9 @@ function do_mirror() {
         if (inline) {
           ctx_mirror.strokeStyle = "red";
         } else {
+          inline = false
           audio.play();
-          alert("You are out of bounds");
+          alert("You are out of bounds. Please proceed to the next page to either retry or move onto an easier image");
         }
 
         if (mirror) {
@@ -409,21 +427,7 @@ function do_mirror() {
         //document.getElementByID("status").innerHTML = p[0]+p[1]+p[2];
       }
 
-      // console.log({
-      // "Mirror Status": mirror,
-      // "mouse.x": mouse.x,
-      // "mouse.y": mouse.y,
-      // xend: xend,
-      // yend: yend,
-      // cendRadius: cendRadius,
-      // endRadius: endRadius,
-      // coordinates: coord,
-      // hex: hex,
-      // p: p,
-      // "p[0]": p[0],
-      // "p[1]": p[1],
-      // "p[2]": p[2],
-      // });
+
       else {
         if (!finished) {
           currentRefresh = new Date();
@@ -465,7 +469,21 @@ function do_mirror() {
             "Finished with score = " + score + "<BR> Click next to continue.";
         }
       }
-
+      // console.log({
+      // "Mirror Status": mirror,
+      // "mouse.x": mouse.x,
+      // "mouse.y": mouse.y,
+      // xend: xend,
+      // yend: yend,
+      // cendRadius: cendRadius,
+      // endRadius: endRadius,
+      // coordinates: coord,
+      // hex: hex,
+      // p: p,
+      // "p[0]": p[0],
+      // "p[1]": p[1],
+      // "p[2]": p[2]
+      // });
       //store current coordinates
       mouseold.x = mouse.x;
       mouseold.y = mouse.y;
