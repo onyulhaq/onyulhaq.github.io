@@ -21,7 +21,6 @@ The function is triggered every time mouse is moved */
 // Initialize mouse cooridinate variables
 // This will allow the image of the mouse pointer to follow where the actual cursor is
 
-
 // let x, y;
 
 // let px, py;
@@ -62,23 +61,7 @@ var materials = {
     true,
     true,
     true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
   ],
-
-
-  //Create Tracing Images on this website: https://fffuel.co/llline/
-  // Convert the SVG to PNG here: chttps://svgtopng.com/
-  // Add a white background to the image here: https://www.photoroom.com/tools/white-background
   file_names: [
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/sample.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
@@ -96,22 +79,22 @@ var materials = {
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
   ],
   xstarts: Array(15).fill(56),
   ystarts: Array(15).fill(259),
@@ -413,7 +396,7 @@ function do_mirror() {
         } else {
           inline = false
           audio.play();
-          alert("You are out of bounds. Please proceed to the next page to either retry or move onto an easier image");
+          alert("You are out of bounds. Please proceed to the next page to either retry or move ");
         }
 
         if (mirror) {
