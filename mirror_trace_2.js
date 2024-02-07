@@ -36,6 +36,14 @@ The function is triggered every time mouse is moved */
 //   cursor.style.top = py + y + "px";
 // });
 
+/*  Remaining Notes
+
+1. Need to change the image for the easy trial.
+
+2. Need to make x and y coordinates for the easy image for starting position and end position
+
+*/
+
 var materials = {
   mirror: [
     false,
@@ -91,7 +99,7 @@ var materials = {
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
     "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
   ],
-  xstarts: Array(15).fill(56),
+  xstarts: Array(16).fill(56).concat(Array(15).fill(213)),
   ystarts: Array(15).fill(259),
   xends: Array(15).fill(365),
   yends: Array(15).fill(252),
@@ -327,7 +335,7 @@ function do_mirror() {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
-            Math.pow(mouseold.y - mouse.y, 2)
+              Math.pow(mouseold.y - mouse.y, 2)
           );
         }
 
@@ -341,8 +349,7 @@ function do_mirror() {
           if (inline) {
             // Whenever we are on the image sum up how far the cursor is from the top left corner
             distance_inline = distance_inline + distance_current;
-          }
-          else {
+          } else {
             inline = true;
             crossings = crossings + 1;
             distance_inline = distance_inline + 0.5 * distance_current;
@@ -353,8 +360,7 @@ function do_mirror() {
               ctx_mirror.moveTo(mouse.x, mouse.y);
             }
           }
-        }
-        else {
+        } else {
           if (inline) {
             inline = false;
             crossings = crossings + 1;
@@ -368,14 +374,14 @@ function do_mirror() {
           // else {
           // }
         }
-        console.log({
-          "mouse.x": mouse.x,
-          "mouse.y": mouse.y,
-          inline: inline,
-          p: p,
-          on_image: p[0] + p[1] + p[2],
-          distance_inline: distance_inline,
-        });
+        // console.log({
+        //   "mouse.x": mouse.x,
+        //   "mouse.y": mouse.y,
+        //   inline: inline,
+        //   p: p,
+        //   on_image: p[0] + p[1] + p[2],
+        //   distance_inline: distance_inline,
+        // });
 
         // distance_total how far we are from the top left corner summed up
         //distance inline -
@@ -389,9 +395,12 @@ function do_mirror() {
         if (inline) {
           ctx_mirror.strokeStyle = "red";
         } else {
-          inline = false
+          inline = false;
           audio.play();
-          alert("You are out of bounds. Please proceed to the next page to either retry or move ");
+          alert(
+            "You are out of bounds. Please proceed to the next page to either retry or move onto another easier image to trace"
+          );
+          inline = false;
         }
 
         if (mirror) {
@@ -403,10 +412,7 @@ function do_mirror() {
         document.getElementById("status").innerHTML =
           "Score = " + Math.round(score);
         //document.getElementByID("status").innerHTML = p[0]+p[1]+p[2];
-      }
-
-
-      else {
+      } else {
         if (!finished) {
           currentRefresh = new Date();
           if (currentRefresh - lastRefresh > 1000 / 30) {
@@ -584,6 +590,7 @@ function do_mirror() {
         timeDiff: timeDiff,
         crossings: crossings,
         base64data: data,
+        finished: finished,
       },
     });
   }
