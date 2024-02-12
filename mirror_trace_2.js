@@ -391,14 +391,14 @@ function do_mirror() {
           // else {
           // }
         }
-        // console.log({
-        //   "mouse.x": mouse.x,
-        //   "mouse.y": mouse.y,
-        //   inline: inline,
-        //   p: p,
-        //   on_image: p[0] + p[1] + p[2],
-        //   distance_inline: distance_inline,
-        // });
+        console.log({
+          "mouse.x": mouse.x,
+          "mouse.y": mouse.y,
+          inline: inline,
+          p: p,
+          on_image: p[0] + p[1] + p[2],
+          distance_inline: distance_inline,
+        });
 
         // distance_total how far we are from the top left corner summed up
         //distance inline -
