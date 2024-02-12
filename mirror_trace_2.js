@@ -83,21 +83,26 @@ var materials = {
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/trial1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
   ],
   xstarts: Array(16).fill(56).concat(Array(15).fill(213)),
   ystarts: Array(15).fill(259),
@@ -335,7 +340,7 @@ function do_mirror() {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
-              Math.pow(mouseold.y - mouse.y, 2)
+            Math.pow(mouseold.y - mouse.y, 2)
           );
         }
 
