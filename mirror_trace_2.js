@@ -299,6 +299,11 @@ function do_mirror() {
       mouse.x = x;
       mouse.y = y;
 
+      console.log({
+        "mouse.x": mouse.x,
+        "mouse.y": mouse.y
+      })
+
       if (mirror) {
         // This reverses the coordinates. Currently Mouse.x and Mouse.y start from the left side of the canvas and top part of the canvas. This function makes it so that the coordinates start from the right and the bottom
         var coord = "x=" + (mywidth - x) + ", y=" + (myheight - y);
@@ -391,14 +396,14 @@ function do_mirror() {
           // else {
           // }
         }
-        console.log({
-          "mouse.x": mouse.x,
-          "mouse.y": mouse.y,
-          inline: inline,
-          p: p,
-          on_image: p[0] + p[1] + p[2],
-          distance_inline: distance_inline,
-        });
+        // console.log({
+        //   "mouse.x": mouse.x,
+        //   "mouse.y": mouse.y,
+        //   inline: inline,
+        //   p: p,
+        //   on_image: p[0] + p[1] + p[2],
+        //   distance_inline: distance_inline,
+        // });
 
         // distance_total how far we are from the top left corner summed up
         //distance inline -
