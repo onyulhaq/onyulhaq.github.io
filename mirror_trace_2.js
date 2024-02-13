@@ -167,16 +167,16 @@ var startTime = 0;
 var endTime = 0;
 var lastRefresh = 0;
 var currentRefresh = 0;
-
+console.log(trialnumber, materials.file_names[trialnumber]);
 function do_mirror() {
   //load materials
   var imagePath = materials.file_names[trialnumber];
+  console.log(trialnumber, materials.file_names[trialnumber]);
   // Whether or not not to use the mirror function
   mirror = materials.mirror[trialnumber];
   //
   var xstart = materials.xstarts[trialnumber];
   var ystart = materials.ystarts[trialnumber];
-
   var startRadius = 10;
 
   var xend = materials.xends[trialnumber];
@@ -299,10 +299,10 @@ function do_mirror() {
       mouse.x = x;
       mouse.y = y;
 
-      console.log({
-        "mouse.x": mouse.x,
-        "mouse.y": mouse.y,
-      });
+      // console.log({
+      //   "mouse.x": mouse.x,
+      //   "mouse.y": mouse.y,
+      // });
 
       if (mirror) {
         // This reverses the coordinates. Currently Mouse.x and Mouse.y start from the left side of the canvas and top part of the canvas. This function makes it so that the coordinates start from the right and the bottom
@@ -422,7 +422,6 @@ function do_mirror() {
           alert(
             "You are out of bounds. Please proceed to the next page to either retry or move onto another easier image to trace"
           );
-          inline = false;
         }
 
         if (mirror) {
