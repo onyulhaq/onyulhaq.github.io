@@ -116,10 +116,10 @@ var materials = {
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
   ],
-  xstarts: Array(16).fill(56).concat(Array(15).fill(213)),
-  ystarts: Array(15).fill(259),
-  xends: Array(15).fill(365),
-  yends: Array(15).fill(252),
+  xstarts: Array(16).fill(56).concat(Array(15).fill(80)),
+  ystarts: Array(15).fill(259).concat(Array(15).fill(68)),
+  xends: Array(15).fill(365).concat(Array(15).fill(318)),
+  yends: Array(15).fill(252).concat(Array(15).fill(226)),
 };
 
 //	'xstarts' : [47,	27,		40,		280,		40,		383,	352],
@@ -301,8 +301,8 @@ function do_mirror() {
 
       console.log({
         "mouse.x": mouse.x,
-        "mouse.y": mouse.y
-      })
+        "mouse.y": mouse.y,
+      });
 
       if (mirror) {
         // This reverses the coordinates. Currently Mouse.x and Mouse.y start from the left side of the canvas and top part of the canvas. This function makes it so that the coordinates start from the right and the bottom
@@ -357,7 +357,7 @@ function do_mirror() {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
-            Math.pow(mouseold.y - mouse.y, 2)
+              Math.pow(mouseold.y - mouse.y, 2)
           );
         }
 
