@@ -167,7 +167,20 @@ var startTime = 0;
 var endTime = 0;
 var lastRefresh = 0;
 var currentRefresh = 0;
-console.log(trialnumber, materials.file_names[trialnumber]);
+// console.log(trialnumber, materials.file_names[trialnumber]);
+
+// Function to reset the timer
+var timer; // Variable to store the timer
+function resetTimer() {
+  clearTimeout(timer); // Clear the previous timer
+  timer = setTimeout(function () {
+    if (!outOfBoundsAlertTriggered) {
+      audio.play();
+      alert("Mouse hasn't moved for more than 1 seconds!"); // Display alert message
+    }
+  }, 2000); // Set timer for 2 seconds (2000 milliseconds)
+}
+
 function do_mirror() {
   //load materials
   var imagePath = materials.file_names[trialnumber];
@@ -187,6 +200,8 @@ function do_mirror() {
   //states to track
   drawing = false; //////////////////////////// Need to change back to false when done
   finished = false;
+
+  outOfBoundsAlertTriggered = false;
 
   score = 0;
 
@@ -277,6 +292,7 @@ function do_mirror() {
   canvas.addEventListener(
     "mousemove",
     function (e) {
+      resetTimer();
       // Only does this when the mouse is hovering above the drawing canvas. The canvas object refers to canvas = document.querySelector("#paint"); that we established above
       // e.PAGEX is the X xoordinate on the window
       // e.PAGEY is the Y xoordinate on the window
@@ -418,6 +434,7 @@ function do_mirror() {
           ctx_mirror.strokeStyle = "red";
         } else {
           inline = false;
+          outOfBoundsAlertTriggered = true;
           audio.play();
           alert(
             "You are out of bounds. Please proceed to the next page to either retry or move onto another easier image to trace"
@@ -498,6 +515,8 @@ function do_mirror() {
   canvas.addEventListener(
     "mousedown",
     function (e) {
+      // Start the timer when the tracing task starts
+      resetTimer();
       var currentRadius = Math.sqrt(
         Math.pow(mouse.x - xstart, 2) + Math.pow(mouse.y - ystart, 2)
       );
