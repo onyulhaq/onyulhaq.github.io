@@ -176,7 +176,7 @@ function resetTimer() {
   timer = setTimeout(function () {
     if (!outOfBoundsAlertTriggered) {
       audio.play();
-      alert("Mouse hasn't moved for more than 1 seconds!"); // Display alert message
+      alert("Mouse hasn't moved for more than 2 seconds!"); // Display alert message
     }
   }, 2000); // Set timer for 2 seconds (2000 milliseconds)
 }
@@ -373,7 +373,7 @@ function do_mirror() {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
-              Math.pow(mouseold.y - mouse.y, 2)
+            Math.pow(mouseold.y - mouse.y, 2)
           );
         }
 
