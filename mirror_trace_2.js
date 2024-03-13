@@ -174,7 +174,7 @@ var timer; // Variable to store the timer
 function resetTimer() {
   clearTimeout(timer); // Clear the previous timer
   timer = setTimeout(function () {
-    if (!outOfBoundsAlertTriggered) {
+    if (!outOfBoundsAlertTriggered & drawing) {
       audio.play();
       alert("Mouse hasn't moved for more than 2 seconds!"); // Display alert message
     }
@@ -373,7 +373,7 @@ function do_mirror() {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
-            Math.pow(mouseold.y - mouse.y, 2)
+              Math.pow(mouseold.y - mouse.y, 2)
           );
         }
 
@@ -439,7 +439,7 @@ function do_mirror() {
           alert(
             "You are out of bounds. Please proceed to the next page to either retry or move onto another easier image to trace"
           );
-          Event.stopObserving(document, 'mousemove')
+          Event.stopObserving(document, "mousemove");
         }
 
         if (mirror) {
