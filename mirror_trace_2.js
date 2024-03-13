@@ -439,6 +439,7 @@ function do_mirror() {
           alert(
             "You are out of bounds. Please proceed to the next page to either retry or move onto another easier image to trace"
           );
+          Event.stopObserving(document, 'mousemove')
         }
 
         if (mirror) {
