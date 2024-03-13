@@ -45,81 +45,15 @@ The function is triggered every time mouse is moved */
 */
 
 var materials = {
-  mirror: [
-    false,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-  ],
+  mirror: [false, true],
   file_names: [
-    "https://raw.githubusercontent.com/onyulhaq/mirror_trace/master/sample.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
   ],
-  xstarts: Array(16).fill(56).concat(Array(15).fill(80)),
-  ystarts: Array(15).fill(259).concat(Array(15).fill(68)),
-  xends: Array(15).fill(365).concat(Array(15).fill(318)),
-  yends: Array(15).fill(252).concat(Array(15).fill(226)),
+  xstarts: [56, 80],
+  ystarts: [259, 68],
+  xends: [365, 318],
+  yends: [252, 226],
 };
 
 //	'xstarts' : [47,	27,		40,		280,		40,		383,	352],
@@ -182,19 +116,24 @@ function resetTimer() {
 }
 
 function do_mirror() {
-  //load materials
-  var imagePath = materials.file_names[trialnumber];
-  console.log(trialnumber, materials.file_names[trialnumber]);
-  // Whether or not not to use the mirror function
-  mirror = materials.mirror[trialnumber];
-  //
-  var xstart = materials.xstarts[trialnumber];
-  var ystart = materials.ystarts[trialnumber];
+  if ((trialnumber >= 0) & (trialnumber <= 16)) {
+    var imagePath = materials.file_names[0];
+    // Whether or not not to use the mirror function
+    mirror = materials.mirror[1];
+    var xstart = materials.xstarts[0];
+    var ystart = materials.ystarts[0];
+    var xend = materials.xends[0];
+    var yend = materials.yends[0];
+  } else if ((trialnumber >= 17) & (trialnumber <= 35)) {
+    var imagePath = materials.file_names[2];
+    mirror = materials.mirror[1];
+    var xstart = materials.xstarts[1];
+    var ystart = materials.ystarts[1];
+    var xend = materials.xends[1];
+    var yend = materials.yends[1];
+  }
+
   var startRadius = 10;
-
-  var xend = materials.xends[trialnumber];
-  var yend = materials.yends[trialnumber];
-
   var endRadius = 7;
 
   //states to track
@@ -439,7 +378,6 @@ function do_mirror() {
           alert(
             "You are out of bounds. Please proceed to the next page to either retry or move onto another easier image to trace"
           );
-          Event.stopObserving(document, "mousemove");
         }
 
         if (mirror) {

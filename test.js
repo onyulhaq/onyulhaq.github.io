@@ -12,7 +12,7 @@ var materials = {
 
 var trialnumber = 13;
 //load materials
-if ((trialnumber >= 1) & (trialnumber <= 16)) {
+if ((trialnumber >= 0) & (trialnumber <= 16)) {
   var imagePath = materials.file_names[1];
   // Whether or not not to use the mirror function
   mirror = materials.mirror[1];
