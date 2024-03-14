@@ -576,4 +576,12 @@ function do_mirror() {
       },
     });
   }
+  // Function to save the current score and update the scores array
+  function saveData() {
+    currentScore -= 10; // Decrease score by 10
+    scores.push(currentScore); // Add new score to the array
+    localStorage.setItem("gameScores", JSON.stringify(scores)); // Save the updated array to localStorage
+    console.log("Current Score Saved: ", currentScore);
+    alert("Score saved! Current score is now: " + currentScore);
+  }
 }

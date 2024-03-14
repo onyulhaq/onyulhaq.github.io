@@ -1,34 +1,36 @@
-var materials = {
-  mirror: [false, true],
-  file_names: [
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
-  ],
-  xstarts: [56, 80],
-  ystarts: [259, 68],
-  xends: [365, 318],
-  yends: [252, 226],
-};
+document.addEventListener("DOMContentLoaded", function () {
+  // Initialize or load the scores array
+  var scores = localStorage.getItem("gameScores")
+    ? JSON.parse(localStorage.getItem("gameScores"))
+    : [];
+  var currentScore = scores.length > 0 ? scores[scores.length - 1] : 2500; // Start from 2500 or the last score
 
-var trialnumber = 13;
-//load materials
-if ((trialnumber >= 0) & (trialnumber <= 16)) {
-  var imagePath = materials.file_names[1];
-  // Whether or not not to use the mirror function
-  mirror = materials.mirror[1];
-  var xstart = materials.xstarts[0];
-  var ystart = materials.ystarts[0];
-  var xend = materials.xends[0];
-  var yend = materials.yends[0];
-} else if ((trialnumber >= 17) & (trialnumber <= 35)) {
-  var imagePath = materials.file_names[2];
-  mirror = materials.mirror[1];
-  var xstart = materials.xstarts[1];
-  var ystart = materials.ystarts[1];
-  var xend = materials.xends[1];
-  var yend = materials.yends[1];
-}
+  // create trial number variable
+  var retries = localStorage.getItem("mirrorRetries")
+    ? JSON.parse(localStorage.getItem("mirrorRetries"))
+    : [];
+  var trialnumber = 0;
 
-var startRadius = 10;
+  // Function to save the current score and update the scores array
+  function saveData() {
+    currentScore -= 10; // Decrease score by 10
+    scores.push(currentScore); // Add new score to the array
 
-console.log(imagePath, mirror, xstart, ystart, xend, yend);
+    // add trial number by 1
+    trialnumber += 1;
+
+    localStorage.setItem("gameScores", JSON.stringify(scores)); // Save the updated array to localStorage
+    console.log("Current Score Saved: ", currentScore);
+    alert("Score saved! Current score is now: " + currentScore);
+  }
+
+  // Check if a saved array exists and load it
+  if (localStorage.getItem("gameScores")) {
+    console.log("Loaded scores: ", scores);
+  }
+
+  // Add event listener to the button
+  document.getElementById("saveButton").addEventListener("click", function () {
+    saveData();
+  });
+});
