@@ -115,6 +115,30 @@ function resetTimer() {
   }, 2000); // Set timer for 2 seconds (2000 milliseconds)
 }
 
+
+function previousData() {
+  // Corrected: Initialize or load the retries array
+  var retries = localStorage.getItem("mirrorRetries")
+    ? JSON.parse(localStorage.getItem("mirrorRetries"))
+    : []; // Should be an array to match your usage
+
+  // Adjusted to work with retries as an array
+  if (retries) {
+    var retryAmount = retries[retries.length - 1]
+  } else {
+    var retryAmount = 0
+  }
+
+
+
+}
+document.addEventListener("DOMContentLoaded", previousData());
+
+
+
+
+
+
 function do_mirror() {
   if ((trialnumber >= 0) & (trialnumber <= 16)) {
     var imagePath = materials.file_names[0];
@@ -170,6 +194,7 @@ function do_mirror() {
   canvas_mirror = document.querySelector("#mirror");
 
   ctx_mirror = canvas_mirror.getContext("2d");
+
 
   //load the image to trace
   // Create instance of an images
@@ -312,7 +337,7 @@ function do_mirror() {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
-              Math.pow(mouseold.y - mouse.y, 2)
+            Math.pow(mouseold.y - mouse.y, 2)
           );
         }
 
@@ -379,8 +404,9 @@ function do_mirror() {
             "You are out of bounds. Please proceed to the next page to either retry or move onto another easier image to trace"
           );
 
+
           // One option is to reload the page. Would need to save participants information across all the reloads. Then export the vectors of results with the savecanvas function
-          // location.reload();
+          location.reload();
         }
 
         if (mirror) {
@@ -457,8 +483,17 @@ function do_mirror() {
   canvas.addEventListener(
     "mousedown",
     function (e) {
-      // Start the timer when the tracing task starts
+      // Start the timer when the tracing task starts. This makes sure that the mouse is not standing still for more than 2 seconds only AFTER the tracing the tracing task has started. 
       resetTimer();
+
+
+      var retryAmount = retries.length > 0 ? retries[retries.length - 1] : 1; // Start from 1 or the last 
+
+      retryAmount += 1; // Increase retryAmount by 1
+      retries.push(retryAmount); // Push updated retryAmount into retries array
+
+
+
       var currentRadius = Math.sqrt(
         Math.pow(mouse.x - xstart, 2) + Math.pow(mouse.y - ystart, 2)
       );
@@ -575,13 +610,5 @@ function do_mirror() {
         finished: finished,
       },
     });
-  }
-  // Function to save the current score and update the scores array
-  function saveData() {
-    currentScore -= 10; // Decrease score by 10
-    scores.push(currentScore); // Add new score to the array
-    localStorage.setItem("gameScores", JSON.stringify(scores)); // Save the updated array to localStorage
-    console.log("Current Score Saved: ", currentScore);
-    alert("Score saved! Current score is now: " + currentScore);
   }
 }

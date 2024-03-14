@@ -1,36 +1,30 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // Initialize or load the scores array
-  var scores = localStorage.getItem("gameScores")
-    ? JSON.parse(localStorage.getItem("gameScores"))
-    : [];
-  var currentScore = scores.length > 0 ? scores[scores.length - 1] : 2500; // Start from 2500 or the last score
+function previousData() {
 
-  // create trial number variable
+  // Corrected: Initialize or load the retries array
   var retries = localStorage.getItem("mirrorRetries")
     ? JSON.parse(localStorage.getItem("mirrorRetries"))
-    : [];
-  var trialnumber = 0;
+    : []; // Should be an array to match your usage
 
-  // Function to save the current score and update the scores array
+  // Adjusted to work with retries as an array
+  var retryAmount = retries.length > 0 ? retries[retries.length - 1] : 1; // Start from 1 or the last retry amount
+
   function saveData() {
-    currentScore -= 10; // Decrease score by 10
-    scores.push(currentScore); // Add new score to the array
+    retryAmount += 1; // Increase retryAmount by 1
+    retries.push(retryAmount); // Push updated retryAmount into retries array
 
-    // add trial number by 1
-    trialnumber += 1;
+    localStorage.setItem("mirrorRetries", JSON.stringify(retries)); // Save retries as an array
 
-    localStorage.setItem("gameScores", JSON.stringify(scores)); // Save the updated array to localStorage
-    console.log("Current Score Saved: ", currentScore);
-    alert("Score saved! Current score is now: " + currentScore);
+    console.log("Current Retries: ", retryAmount);
+    alert("Total retries: " + retryAmount);
   }
 
-  // Check if a saved array exists and load it
-  if (localStorage.getItem("gameScores")) {
-    console.log("Loaded scores: ", scores);
+  if (localStorage.getItem("gameScores") && localStorage.getItem("mirrorRetries")) {
+    console.log("Loaded retries: ", retries);
   }
 
-  // Add event listener to the button
   document.getElementById("saveButton").addEventListener("click", function () {
     saveData();
   });
-});
+}
+
+document.addEventListener("DOMContentLoaded", previousData());
