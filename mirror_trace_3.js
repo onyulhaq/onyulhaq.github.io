@@ -70,6 +70,8 @@ var materials = {
 // the php script is posted on github
 var saveScript = "https://calin-jageman.net/mirror_trace/save.php";
 var saveTrace = false;
+// Clear Local Storage when it occurs
+// localStorage.clear()
 
 //image dimensions
 var mywidth = 400;
@@ -114,30 +116,6 @@ function resetTimer() {
     }
   }, 2000); // Set timer for 2 seconds (2000 milliseconds)
 }
-
-
-function previousData() {
-  // Corrected: Initialize or load the retries array
-  var retries = localStorage.getItem("mirrorRetries")
-    ? JSON.parse(localStorage.getItem("mirrorRetries"))
-    : []; // Should be an array to match your usage
-
-  // Adjusted to work with retries as an array
-  if (retries) {
-    var retryAmount = retries[retries.length - 1]
-  } else {
-    var retryAmount = 0
-  }
-
-
-
-}
-document.addEventListener("DOMContentLoaded", previousData());
-
-
-
-
-
 
 function do_mirror() {
   if ((trialnumber >= 0) & (trialnumber <= 16)) {
@@ -194,7 +172,6 @@ function do_mirror() {
   canvas_mirror = document.querySelector("#mirror");
 
   ctx_mirror = canvas_mirror.getContext("2d");
-
 
   //load the image to trace
   // Create instance of an images
@@ -399,15 +376,25 @@ function do_mirror() {
         } else {
           inline = false;
           outOfBoundsAlertTriggered = true;
+
+          // When we are out of bounds check to see if there is a 
+          var sessionScores = localStorage.getItem("scores") ? (localStorage.getItem("scores")) : [];
+          sessionScores = sessionScores + "," + score;
+          localStorage.setItem("scores", sessionScores);
+          console.log(sessionScores, typeof (sessionScores));
           audio.play();
           alert(
             "You are out of bounds. Please proceed to the next page to either retry or move onto another easier image to trace"
           );
 
 
+          location.reload()
+
+
           // One option is to reload the page. Would need to save participants information across all the reloads. Then export the vectors of results with the savecanvas function
-          location.reload();
+          // location.reload();
         }
+
 
         if (mirror) {
           ctx_mirror.lineTo(mywidth - mouse.x, myheight - mouse.y);
@@ -483,17 +470,8 @@ function do_mirror() {
   canvas.addEventListener(
     "mousedown",
     function (e) {
-      // Start the timer when the tracing task starts. This makes sure that the mouse is not standing still for more than 2 seconds only AFTER the tracing the tracing task has started. 
+      // Start the timer when the tracing task starts
       resetTimer();
-
-
-      var retryAmount = retries.length > 0 ? retries[retries.length - 1] : 1; // Start from 1 or the last 
-
-      retryAmount += 1; // Increase retryAmount by 1
-      retries.push(retryAmount); // Push updated retryAmount into retries array
-
-
-
       var currentRadius = Math.sqrt(
         Math.pow(mouse.x - xstart, 2) + Math.pow(mouse.y - ystart, 2)
       );
@@ -608,6 +586,7 @@ function do_mirror() {
         crossings: crossings,
         base64data: data,
         finished: finished,
+        sessionScores: sessionScores
       },
     });
   }
