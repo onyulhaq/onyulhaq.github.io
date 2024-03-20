@@ -48,7 +48,6 @@ var materials = {
   mirror: [false, true],
   file_names: [
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
   ],
   xstarts: [56, 80],
