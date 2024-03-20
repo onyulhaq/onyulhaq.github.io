@@ -51,10 +51,10 @@ var materials = {
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
   ],
-  xstarts: [20, 56, 80],
-  ystarts: [20, 259, 68],
-  xends: [20, 365, 318],
-  yends: [20, 252, 226],
+  xstarts: [56, 56, 80],
+  ystarts: [259, 259, 68],
+  xends: [365, 365, 318],
+  yends: [252, 252, 226],
 };
 
 //	'xstarts' : [47,	27,		40,		280,		40,		383,	352],
