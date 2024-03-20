@@ -103,7 +103,9 @@ var startTime = 0;
 var endTime = 0;
 var lastRefresh = 0;
 var currentRefresh = 0;
-var sessionScores = localStorage.getItem("scores") ? (localStorage.getItem("scores")) : [];
+var sessionScores = sessionStorage.getItem("scores")
+  ? sessionStorage.getItem("scores")
+  : [];
 
 // console.log(trialnumber, materials.file_names[trialnumber]);
 
@@ -296,7 +298,6 @@ function do_mirror() {
           drawing = false;
           finished = true;
           if (saveTrace) {
-
             saveCanvas();
             //call save function
           }
@@ -317,7 +318,7 @@ function do_mirror() {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
-            Math.pow(mouseold.y - mouse.y, 2)
+              Math.pow(mouseold.y - mouse.y, 2)
           );
         }
 
@@ -380,23 +381,20 @@ function do_mirror() {
           inline = false;
           outOfBoundsAlertTriggered = true;
 
-          // When we are out of bounds check to see if there is a 
+          // When we are out of bounds check to see if there is a
           sessionScores = sessionScores + "," + score;
-          localStorage.setItem("scores", sessionScores);
-          console.log(sessionScores, typeof (sessionScores));
+          sessionStorage.setItem("scores", sessionScores);
+          console.log(sessionScores, typeof sessionScores);
           audio.play();
           alert(
-            "You are out of bounds. Please proceed to the next page to either retry or move onto another easier image to trace"
+            "You are out of bounds. This page will refresh automatically or you can move onto the next page to "
           );
 
-
-          location.reload()
-
+          location.reload();
 
           // One option is to reload the page. Would need to save participants information across all the reloads. Then export the vectors of results with the savecanvas function
           // location.reload();
         }
-
 
         if (mirror) {
           ctx_mirror.lineTo(mywidth - mouse.x, myheight - mouse.y);
