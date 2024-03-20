@@ -103,6 +103,8 @@ var startTime = 0;
 var endTime = 0;
 var lastRefresh = 0;
 var currentRefresh = 0;
+var sessionScores = localStorage.getItem("scores") ? (localStorage.getItem("scores")) : [];
+
 // console.log(trialnumber, materials.file_names[trialnumber]);
 
 // Function to reset the timer
@@ -137,7 +139,6 @@ function do_mirror() {
 
   var startRadius = 10;
   var endRadius = 7;
-  var sessionScores = localStorage.getItem("scores") ? (localStorage.getItem("scores")) : [];
 
   //states to track
   drawing = false; //////////////////////////// Need to change back to false when done
