@@ -75,9 +75,9 @@ function do_mirror() {
   mirror = materials.mirror[trialnumber];
   var xstart = materials.xstarts[trialnumber];
   var ystart = materials.ystarts[trialnumber];
-  var startRadius = 15;
-  var xend = materials.xends[trialnumber];
   var yend = materials.yends[trialnumber];
+  var xend = materials.xends[trialnumber];
+  var startRadius = 15;
   var endRadius = 7;
 
   //states to track
@@ -193,7 +193,7 @@ function do_mirror() {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
-              Math.pow(mouseold.y - mouse.y, 2)
+            Math.pow(mouseold.y - mouse.y, 2)
           );
         } else {
           distance_current = 0;
