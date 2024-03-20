@@ -115,6 +115,8 @@ function resetTimer() {
   clearTimeout(timer); // Clear the previous timer
   timer = setTimeout(function () {
     if (!outOfBoundsAlertTriggered & drawing) {
+      sessionScores = sessionScores + "," + score;
+      sessionStorage.setItem("scores", sessionScores);
       audio.play();
       alert("Mouse hasn't moved for more than 2 seconds!"); // Display alert message
     }
