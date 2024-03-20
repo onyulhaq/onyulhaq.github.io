@@ -137,6 +137,7 @@ function do_mirror() {
 
   var startRadius = 10;
   var endRadius = 7;
+  var sessionScores = localStorage.getItem("scores") ? (localStorage.getItem("scores")) : [];
 
   //states to track
   drawing = false; //////////////////////////// Need to change back to false when done
@@ -379,7 +380,6 @@ function do_mirror() {
           outOfBoundsAlertTriggered = true;
 
           // When we are out of bounds check to see if there is a 
-          var sessionScores = localStorage.getItem("scores") ? (localStorage.getItem("scores")) : [];
           sessionScores = sessionScores + "," + score;
           localStorage.setItem("scores", sessionScores);
           console.log(sessionScores, typeof (sessionScores));
