@@ -609,6 +609,7 @@ function do_mirror() {
         base64data: data,
         finished: finished,
         sessionScores: sessionScores,
+        sessionRts: sessionRts,
       },
     });
   }
