@@ -107,6 +107,10 @@ var sessionScores = sessionStorage.getItem("scores")
   ? sessionStorage.getItem("scores")
   : [];
 
+var sessionRts = sessionStorage.getItem("rts")
+  ? sessionStorage.getItem("rts")
+  : [];
+
 // console.log(trialnumber, materials.file_names[trialnumber]);
 
 // Function to reset the timer
@@ -115,10 +119,19 @@ function resetTimer() {
   clearTimeout(timer); // Clear the previous timer
   timer = setTimeout(function () {
     if (!outOfBoundsAlertTriggered & drawing) {
+
+      // Capture score 
       sessionScores = sessionScores + "," + score;
       sessionStorage.setItem("scores", sessionScores);
+
+      //Capture Reaction Times
+      sessionRts = sessionRts + "," + timeDiff;
+      sessionStorage.setItem("rts", sessionRts);
+
+
       audio.play();
       alert("Mouse hasn't moved for more than 2 seconds!"); // Display alert message
+      location.reload(); // Reload the page when they are done with the alert
     }
   }, 2000); // Set timer for 2 seconds (2000 milliseconds)
 }
@@ -320,7 +333,7 @@ function do_mirror() {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
-              Math.pow(mouseold.y - mouse.y, 2)
+            Math.pow(mouseold.y - mouse.y, 2)
           );
         }
 
@@ -384,9 +397,16 @@ function do_mirror() {
           outOfBoundsAlertTriggered = true;
 
           // When we are out of bounds check to see if there is a
+
+          //Capture Scores across each refresh/attempt
           sessionScores = sessionScores + "," + score;
           sessionStorage.setItem("scores", sessionScores);
-          console.log(sessionScores, typeof sessionScores);
+
+          //Capture Reaction Times
+          sessionRts = sessionRts + "," + timeDiff;
+          sessionStorage.setItem("rts", sessionRts);
+
+          console.log(sessionScores, sessionRts);
           audio.play();
           alert(
             "You are out of bounds. This page will refresh automatically or you can move onto the next page to "
