@@ -294,6 +294,7 @@ function do_mirror() {
           drawing = false;
           finished = true;
           if (saveTrace) {
+
             saveCanvas();
             //call save function
           }
@@ -586,7 +587,7 @@ function do_mirror() {
         crossings: crossings,
         base64data: data,
         finished: finished,
-        sessionScores: sessionScores
+        sessionScores: sessionScores,
       },
     });
   }
