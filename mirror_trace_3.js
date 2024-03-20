@@ -139,7 +139,6 @@ function resetTimer() {
 function do_mirror() {
   mirror = materials.mirror[1];
   var imagePath = materials.file_names[trialnumber];
-  mirror = materials.mirror[trialnumber];
   var xstart = materials.xstarts[trialnumber];
   var ystart = materials.ystarts[trialnumber];
   var yend = materials.yends[trialnumber];
