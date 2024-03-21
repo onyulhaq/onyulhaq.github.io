@@ -435,8 +435,7 @@ function do_mirror() {
           ctx_mirror.lineTo(mouse.x, mouse.y);
         }
         ctx_mirror.stroke();
-        document.getElementById("status").innerHTML =
-          "Score = " + Math.round(score / 10);
+        document.getElementById("status").innerHTML = "Score = " + score / 10;
         //document.getElementByID("status").innerHTML = p[0]+p[1]+p[2];
       } else {
         if (!finished) {
@@ -477,7 +476,7 @@ function do_mirror() {
         } else {
           document.getElementById("status").innerHTML =
             "Finished with score = " +
-            Math.round(score / 10) +
+            score / 10 +
             "<BR> Click next to continue.";
         }
       }
