@@ -318,8 +318,15 @@ function do_mirror() {
           drawing = false;
           finished = true;
           if (saveTrace) {
-            saveCanvas();
+            //Capture Scores across each refresh/attempt
+            sessionScores = sessionScores + "," + score;
+            sessionStorage.setItem("scores", sessionScores);
+
+            //Capture Reaction Times
+            sessionRts = sessionRts + "," + timeDiff;
+            sessionStorage.setItem("rts", sessionRts);
             //call save function
+            saveCanvas();
           }
         }
       }
@@ -429,7 +436,7 @@ function do_mirror() {
         }
         ctx_mirror.stroke();
         document.getElementById("status").innerHTML =
-          "Score = " + Math.round(score);
+          "Score = " + Math.round(score / 10);
         //document.getElementByID("status").innerHTML = p[0]+p[1]+p[2];
       } else {
         if (!finished) {
@@ -469,7 +476,9 @@ function do_mirror() {
           }
         } else {
           document.getElementById("status").innerHTML =
-            "Finished with score = " + score + "<BR> Click next to continue.";
+            "Finished with score = " +
+            Math.round(score / 10) +
+            "<BR> Click next to continue.";
         }
       }
       // console.log({
