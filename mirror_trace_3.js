@@ -112,6 +112,7 @@ var sessionRts = sessionStorage.getItem("rts")
   ? sessionStorage.getItem("rts")
   : [];
 
+
 // console.log(trialnumber, materials.file_names[trialnumber]);
 
 // Function to reset the timer
@@ -148,6 +149,11 @@ function do_mirror() {
   var startRadius = 10;
   var endRadius = 7;
 
+  // Set the session storage to the current  trial number
+  sessionStorage.setItem("trialnumber", trialnumber)
+  // get the current session trial number
+  var sessionTrialNumber = sessionStorage.getItem("trialnumber")
+  console.log(sessionTrialNumber)
   //states to track
   drawing = false; //////////////////////////// Need to change back to false when done
   finished = false;
