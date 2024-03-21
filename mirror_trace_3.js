@@ -45,7 +45,7 @@ The function is triggered every time mouse is moved */
 */
 
 var materials = {
-  mirror: [false, true],
+  mirror: [true, true],
   file_names: [
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
@@ -403,7 +403,6 @@ function do_mirror() {
           sessionStorage.setItem("rts", sessionRts);
 
           console.log(sessionScores, sessionRts);
-          console.log(sessionTrialNumber);
 
           audio.play();
           alert(
