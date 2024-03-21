@@ -43,6 +43,15 @@ The function is triggered every time mouse is moved */
 2. Need to make x and y coordinates for the easy image for starting position and end position
 
 */
+// https://www.tutorialspoint.com/how-to-disable-right-clicking-on-a-website-using-javascript
+
+/* 
+
+Need to make sure that finished rounds are recorded properly
+
+Divide the displayed score by 100 to make it more reasonable.
+
+*/
 
 var materials = {
   mirror: [true, true],
@@ -136,7 +145,7 @@ function resetTimer() {
       sessionStorage.setItem("rts", sessionRts);
 
       audio.play();
-      alert("Mouse hasn't moved for more than 2 seconds!"); // Display alert message
+      alert("Your mouse hasn't moved for more than 2 seconds!"); // Display alert message
       location.reload(); // Reload the page when they are done with the alert
     }
   }, 2000); // Set timer for 2 seconds (2000 milliseconds)
@@ -405,9 +414,7 @@ function do_mirror() {
           console.log(sessionScores, sessionRts);
 
           audio.play();
-          alert(
-            "You are out of bounds. This page will refresh automatically or you can move onto the next page to "
-          );
+          alert("You are out of bounds. This page will refresh automatically.");
 
           location.reload();
 
