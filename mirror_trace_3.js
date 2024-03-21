@@ -315,16 +315,17 @@ function do_mirror() {
 
       if (cendRadius < endRadius) {
         if (drawing) {
+          //Capture Scores across each refresh/attempt
+          sessionScores = sessionScores + "," + score;
+          sessionStorage.setItem("scores", sessionScores);
+
+          //Capture Reaction Times
+          sessionRts = sessionRts + "," + timeDiff;
+          sessionStorage.setItem("rts", sessionRts);
           drawing = false;
           finished = true;
           if (saveTrace) {
-            //Capture Scores across each refresh/attempt
-            sessionScores = sessionScores + "," + score;
-            sessionStorage.setItem("scores", sessionScores);
 
-            //Capture Reaction Times
-            sessionRts = sessionRts + "," + timeDiff;
-            sessionStorage.setItem("rts", sessionRts);
             //call save function
             saveCanvas();
           }
@@ -345,7 +346,7 @@ function do_mirror() {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
-              Math.pow(mouseold.y - mouse.y, 2)
+            Math.pow(mouseold.y - mouse.y, 2)
           );
         }
 
