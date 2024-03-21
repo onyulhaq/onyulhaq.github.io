@@ -315,13 +315,6 @@ function do_mirror() {
 
       if (cendRadius < endRadius) {
         if (drawing) {
-          //Capture Scores across each refresh/attempt
-          sessionScores = sessionScores + "," + score;
-          sessionStorage.setItem("scores", sessionScores);
-
-          //Capture Reaction Times
-          sessionRts = sessionRts + "," + timeDiff;
-          sessionStorage.setItem("rts", sessionRts);
           drawing = false;
           finished = true;
           if (saveTrace) {
