@@ -112,14 +112,12 @@ var sessionRts = sessionStorage.getItem("rts")
   ? sessionStorage.getItem("rts")
   : [];
 
-// This finds compares the current trial number with the previous trial number. If they don't match then that means we've moved onto a nother image and we need to clear the sessionStorage.
-var seesionTrialNumbers = sessionStorage.getItem("trialnumber")
-  ? sessionStorage.getItem("trialnumber")
-  : [];
+// // This finds compares the current trial number with the previous trial number. If they don't match then that means we've moved onto a nother image and we need to clear the sessionStorage.
+// var seesionTrialNumbers = sessionStorage.getItem("trialnumber")
+//   ? sessionStorage.getItem("trialnumber")
+//   : [];
 
-var previousTrialNumber = seesionTrialNumbers.length > 0 ? seesionTrialNumbers[seesionTrialNumbers.length - 2] : trialnumber; // If the number of trials in the stored is more than 1 (meaning we have at least two refreshes/sessions - then get the second to last number and save that as the previous trial number. If it's not bigger than than 1 then get the current)
-
-
+// var previousTrialNumber = seesionTrialNumbers.length > 0 ? seesionTrialNumbers[seesionTrialNumbers.length - 2] : trialnumber; // If the number of trials in the stored is more than 1 (meaning we have at least two refreshes/sessions - then get the second to last number and save that as the previous trial number. If it's not bigger than than 1 then get the current)
 
 // console.log(trialnumber, materials.file_names[trialnumber]);
 
@@ -129,15 +127,13 @@ function resetTimer() {
   clearTimeout(timer); // Clear the previous timer
   timer = setTimeout(function () {
     if (!outOfBoundsAlertTriggered & drawing) {
-
-      // Capture score 
+      // Capture score
       sessionScores = sessionScores + "," + score;
       sessionStorage.setItem("scores", sessionScores);
 
       //Capture Reaction Times
       sessionRts = sessionRts + "," + timeDiff;
       sessionStorage.setItem("rts", sessionRts);
-
 
       audio.play();
       alert("Mouse hasn't moved for more than 2 seconds!"); // Display alert message
@@ -333,7 +329,7 @@ function do_mirror() {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
-            Math.pow(mouseold.y - mouse.y, 2)
+              Math.pow(mouseold.y - mouse.y, 2)
           );
         }
 
@@ -407,7 +403,7 @@ function do_mirror() {
           sessionStorage.setItem("rts", sessionRts);
 
           console.log(sessionScores, sessionRts);
-          console.log(sessionTrialNumber)
+          console.log(sessionTrialNumber);
 
           audio.play();
           alert(
