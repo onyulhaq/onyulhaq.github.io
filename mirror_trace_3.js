@@ -112,6 +112,14 @@ var sessionRts = sessionStorage.getItem("rts")
   ? sessionStorage.getItem("rts")
   : [];
 
+// This finds compares the current trial number with the previous trial number. If they don't match then that means we've moved onto a nother image and we need to clear the sessionStorage.
+var seesionTrialNumbers = sessionStorage.getItem("trialnumber")
+  ? sessionStorage.getItem("trialnumber")
+  : [];
+
+var previousTrialNumber = seesionTrialNumbers.length > 0 ? seesionTrialNumbers[seesionTrialNumbers.length - 2] : trialnumber; // If the number of trials in the stored is more than 1 (meaning we have at least two refreshes/sessions - then get the second to last number and save that as the previous trial number. If it's not bigger than than 1 then get the current)
+
+
 
 // console.log(trialnumber, materials.file_names[trialnumber]);
 
@@ -149,11 +157,6 @@ function do_mirror() {
   var startRadius = 10;
   var endRadius = 7;
 
-  // Set the session storage to the current  trial number
-  sessionStorage.setItem("trialnumber", trialnumber)
-  // get the current session trial number
-  var sessionTrialNumber = sessionStorage.getItem("trialnumber")
-  console.log(sessionTrialNumber)
   //states to track
   drawing = false; //////////////////////////// Need to change back to false when done
   finished = false;
@@ -404,6 +407,8 @@ function do_mirror() {
           sessionStorage.setItem("rts", sessionRts);
 
           console.log(sessionScores, sessionRts);
+          console.log(sessionTrialNumber)
+
           audio.play();
           alert(
             "You are out of bounds. This page will refresh automatically or you can move onto the next page to "
