@@ -144,7 +144,7 @@ function resetTimer() {
       sessionRts = sessionRts + "," + timeDiff;
       sessionStorage.setItem("rts", sessionRts);
 
-      audio.play();
+      // audio.play();
       alert("STOPPED FOR 2 SECONDS! RESTARTING."); // Display alert message
       location.reload(); // Reload the page when they are done with the alert
     }
@@ -413,7 +413,7 @@ function do_mirror() {
 
           console.log(sessionScores, sessionRts);
 
-          audio.play();
+          // audio.play();
           alert("OUT OF BOUNDS! RESTARTING");
 
           location.reload();
