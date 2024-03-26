@@ -145,7 +145,7 @@ function resetTimer() {
       sessionStorage.setItem("rts", sessionRts);
 
       audio.play();
-      alert("Your mouse hasn't moved for more than 2 seconds!"); // Display alert message
+      alert("STOPPED FOR 2 SECONDS! RESTARTING."); // Display alert message
       location.reload(); // Reload the page when they are done with the alert
     }
   }, 2000); // Set timer for 2 seconds (2000 milliseconds)
@@ -318,7 +318,6 @@ function do_mirror() {
           drawing = false;
           finished = true;
           if (saveTrace) {
-
             //call save function
             saveCanvas();
           }
@@ -339,7 +338,7 @@ function do_mirror() {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
-            Math.pow(mouseold.y - mouse.y, 2)
+              Math.pow(mouseold.y - mouse.y, 2)
           );
         }
 
@@ -415,7 +414,7 @@ function do_mirror() {
           console.log(sessionScores, sessionRts);
 
           audio.play();
-          alert("You are out of bounds. This page will refresh automatically.");
+          alert("OUT OF BOUNDS! RESTARTING");
 
           location.reload();
 
@@ -429,8 +428,6 @@ function do_mirror() {
           ctx_mirror.lineTo(mouse.x, mouse.y);
         }
         ctx_mirror.stroke();
-        document.getElementById("status").innerHTML =
-          "Score = " + Math.round(score / 10);
         //document.getElementByID("status").innerHTML = p[0]+p[1]+p[2];
       } else {
         if (!finished) {
@@ -470,9 +467,7 @@ function do_mirror() {
           }
         } else {
           document.getElementById("status").innerHTML =
-            "Finished with score = " +
-            Math.round(score / 10) +
-            "<BR> Click next to continue.";
+            "Finished" + "<BR> Click next to continue.";
         }
       }
       // console.log({
@@ -518,7 +513,7 @@ function do_mirror() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx_mirror.drawImage(imageObj, 0, 0, mywidth, myheight);
             ctx_mirror.fillStyle = "red";
-            ctx_mirror.globalAlpha = 0.4;
+            ctx_mirror.globalAlpha = 0.9;
             ctx_mirror.beginPath();
             if (mirror) {
               ctx_mirror.arc(
