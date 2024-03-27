@@ -56,14 +56,26 @@ Divide the displayed score by 100 to make it more reasonable.
 var materials = {
   mirror: [true, true],
   file_names: [
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
-    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trialh1_white.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trial4.png",
+    "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/trial4.png",
     "https://raw.githubusercontent.com/onyulhaq/onyulhaq.github.io/master/triale1.png",
   ],
-  xstarts: [56, 56, 80],
-  ystarts: [259, 259, 68],
-  xends: [365, 365, 318],
-  yends: [252, 252, 226],
+  xstarts: [
+    40,
+    40,
+    80],
+  ystarts: [
+    52,
+    52,
+    68],
+  xends: [
+    363,
+    363,
+    318],
+  yends: [
+    266,
+    266,
+    226],
 };
 
 //	'xstarts' : [47,	27,		40,		280,		40,		383,	352],
@@ -159,7 +171,10 @@ function do_mirror() {
   var yend = materials.yends[trialnumber];
   var xend = materials.xends[trialnumber];
 
-  var startRadius = 10;
+  // Radius of start green circle
+  var startRadius = 5;
+
+  //Radius of end red circle
   var endRadius = 7;
 
   //states to track
@@ -280,10 +295,11 @@ function do_mirror() {
       mouse.x = x;
       mouse.y = y;
 
-      // console.log({
-      //   "mouse.x": mouse.x,
-      //   "mouse.y": mouse.y,
-      // });
+      // Shows the x and y coordinates of the cursor on the drawing panel. 
+      console.log({
+        "mouse.x": mouse.x,
+        "mouse.y": mouse.y,
+      });
 
       if (mirror) {
         // This reverses the coordinates. Currently Mouse.x and Mouse.y start from the left side of the canvas and top part of the canvas. This function makes it so that the coordinates start from the right and the bottom
@@ -338,7 +354,7 @@ function do_mirror() {
         if (mouseold.x - mouse.x + mouseold.y - mouse.y != 0) {
           distance_current = Math.sqrt(
             Math.pow(mouseold.x - mouse.x, 2) +
-              Math.pow(mouseold.y - mouse.y, 2)
+            Math.pow(mouseold.y - mouse.y, 2)
           );
         }
 
