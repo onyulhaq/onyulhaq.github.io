@@ -147,6 +147,10 @@ function do_mirror() {
         //Capture Reaction Times
         sessionRts = sessionRts + "," + timeDiff;
         sessionStorage.setItem("rts", sessionRts);
+        console.log({
+          sessionScores: sessionScores,
+          sessionRts: sessionRts,
+        });
 
         // audio.play();
         alert("STOPPED FOR 2 SECONDS! RESTARTING."); // Display alert message
@@ -415,7 +419,10 @@ function do_mirror() {
         sessionRts = sessionRts + "," + timeDiff;
         sessionStorage.setItem("rts", sessionRts);
 
-        console.log(sessionScores, sessionRts);
+        console.log({
+          sessionScores: sessionScores,
+          sessionRts: sessionRts,
+        });
 
         // audio.play();
         alert("OUT OF BOUNDS! RESTARTING");
