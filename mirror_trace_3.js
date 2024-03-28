@@ -131,27 +131,29 @@ var sessionRts = sessionStorage.getItem("rts")
 // console.log(trialnumber, materials.file_names[trialnumber]);
 
 // Function to reset the timer
-var timer; // Variable to store the timer
-function resetTimer() {
-  clearTimeout(timer); // Clear the previous timer
-  timer = setTimeout(function () {
-    if (!outOfBoundsAlertTriggered & drawing) {
-      // Capture score
-      sessionScores = sessionScores + "," + score;
-      sessionStorage.setItem("scores", sessionScores);
-
-      //Capture Reaction Times
-      sessionRts = sessionRts + "," + timeDiff;
-      sessionStorage.setItem("rts", sessionRts);
-
-      // audio.play();
-      alert("STOPPED FOR 2 SECONDS! RESTARTING."); // Display alert message
-      location.reload(); // Reload the page when they are done with the alert
-    }
-  }, 2000); // Set timer for 2 seconds (2000 milliseconds)
-}
 
 function do_mirror() {
+  var timer; // Variable to store the timer
+  function resetTimer() {
+    clearTimeout(timer); // Clear the previous timer
+    timer = setTimeout(function () {
+      if (!outOfBoundsAlertTriggered & drawing) {
+        // Capture score
+        canvas.removeEventListener("mousemove", mouse_stuff);
+
+        sessionScores = sessionScores + "," + score;
+        sessionStorage.setItem("scores", sessionScores);
+
+        //Capture Reaction Times
+        sessionRts = sessionRts + "," + timeDiff;
+        sessionStorage.setItem("rts", sessionRts);
+
+        // audio.play();
+        alert("STOPPED FOR 2 SECONDS! RESTARTING."); // Display alert message
+        // location.reload(); // Reload the page when they are done with the alert
+      }
+    }, 2000); // Set timer for 2 seconds (2000 milliseconds)
+  }
   mirror = materials.mirror[1];
   var imagePath = materials.file_names[trialnumber];
   var xstart = materials.xstarts[trialnumber];
