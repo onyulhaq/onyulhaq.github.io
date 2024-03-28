@@ -150,7 +150,7 @@ function do_mirror() {
 
         // audio.play();
         alert("STOPPED FOR 2 SECONDS! RESTARTING."); // Display alert message
-        // location.reload(); // Reload the page when they are done with the alert
+        location.reload(); // Reload the page when they are done with the alert
       }
     }, 2000); // Set timer for 2 seconds (2000 milliseconds)
   }
