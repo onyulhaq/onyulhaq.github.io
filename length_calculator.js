@@ -21,11 +21,10 @@ function do_line_length() {
   };
 
   const getClientOffset = (event) => {
-    const { pageX, pageY } = event.touches ? event.touches[0] : event;
-    event.touches;
-    console.log(pageX);
-    const x = event.pageX - canvas.offsetLeft;
-    const y = event.pageY - canvas.offsetTop;
+    const rect = canvas.getBoundingClientRect(); // get the size of the canvas and its position relative to the viewport
+    const x = event.clientX - rect.left; // calculate the x coordinate relative to the canvas
+    const y = event.clientY - rect.top; // calculate the y coordinate relative to the canvas
+
     console.log(x, y);
 
     return {
