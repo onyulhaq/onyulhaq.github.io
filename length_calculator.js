@@ -1,7 +1,7 @@
 function do_line_length() {
+  var saveScript = "https://calin-jageman.net/mirror_trace/save.php";
   //drawing contexts for cursor area and mirrored area
   canvas = document.querySelector("#draw_line");
-  var saveScript = "https://calin-jageman.net/mirror_trace/save.php";
 
   ctx = canvas.getContext("2d");
 
@@ -25,6 +25,7 @@ function do_line_length() {
     event.touches;
     const x = pageX - canvas.offsetLeft;
     const y = pageY - canvas.offsetTop;
+    console.log(x, y);
 
     return {
       x,
@@ -56,19 +57,12 @@ function do_line_length() {
     isDrawStart = false;
     // Update line length when mouse is lifted
     lineLengthOnMouseUp = updateLineAndLength();
+    console.log(lineLengthOnMouseUp);
   };
 
   const clearCanvas = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
-
-  canvas.addEventListener("mousedown", mouseDownListener);
-  canvas.addEventListener("mousemove", mouseMoveListener);
-  canvas.addEventListener("mouseup", mouseupListener);
-
-  canvas.addEventListener("touchstart", mouseDownListener);
-  canvas.addEventListener("touchmove", mouseMoveListener);
-  canvas.addEventListener("touchend", mouseupListener);
 
   // Function to update line length and draw line
   const updateLineAndLength = () => {
@@ -79,7 +73,6 @@ function do_line_length() {
     drawLine();
 
     //   // Output the length of the line (you can display it wherever you want)
-    console.log(lineLength);
 
     return lineLength;
     //   console.log("Length of the line:", lineLength);
@@ -87,20 +80,13 @@ function do_line_length() {
 
   // /https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseup_event
 
-  function saveCanvas() {
-    // Get the line length by calling updateLineAndLength function
-    // var lineLength = updateLineAndLength();
+  //https://community.qualtrics.com/custom-code-12/drawing-boxes-on-images-18069?postid=44365#post44365
 
-    // Send the screenshot to PHP to save it on the server
-    var url = saveScript;
+  canvas.addEventListener("mousedown", mouseDownListener);
+  canvas.addEventListener("mousemove", mouseMoveListener);
+  canvas.addEventListener("mouseup", mouseupListener);
 
-    jQuery.ajax({
-      type: "POST",
-      url: url,
-      dataType: "text",
-      data: {
-        line_length: lineLengthOnMouseUp,
-      },
-    });
-  }
+  canvas.addEventListener("touchstart", mouseDownListener);
+  canvas.addEventListener("touchmove", mouseMoveListener);
+  canvas.addEventListener("touchend", mouseupListener);
 }
