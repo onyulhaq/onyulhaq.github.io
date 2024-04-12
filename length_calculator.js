@@ -10,6 +10,9 @@ let isDrawStart = false;
 
 // Variable to store the length of the line
 let lineLength = 0;
+
+// Global variable to store line length
+let lineLengthOnMouseUp = 0;
 // Function to calculate distance between two points
 const calculateDistance = (point1, point2) => {
   return Math.sqrt((point2.x - point1.x) ** 2 + (point2.y - point1.y) ** 2);
@@ -45,12 +48,12 @@ const mouseMoveListener = (event) => {
   lineCoordinates = getClientOffset(event);
   clearCanvas();
   updateLineAndLength();
-
-  let cur_linelength = updateLineAndLength();
 };
 
 const mouseupListener = (event) => {
   isDrawStart = false;
+  // Update line length when mouse is lifted
+  lineLengthOnMouseUp = updateLineAndLength();
 };
 
 const clearCanvas = () => {
@@ -74,6 +77,7 @@ const updateLineAndLength = () => {
   drawLine();
 
   //   // Output the length of the line (you can display it wherever you want)
+  console.log(lineLength);
 
   return lineLength;
   //   console.log("Length of the line:", lineLength);
@@ -82,14 +86,8 @@ const updateLineAndLength = () => {
 // /https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseup_event
 
 function saveCanvas() {
-  // Get the canvas screenshot as PNG
-  var screenshot = Canvas2Image.saveAsPNG(canvas_mirror, true);
-
-  // This is a little trick to get the SRC attribute from the generated <img> screenshot
-  canvas_mirror.parentNode.appendChild(screenshot);
-  screenshot.id = "canvasimage";
-  data = screenshot.src;
-  canvas_mirror.parentNode.removeChild(screenshot);
+  // Get the line length by calling updateLineAndLength function
+  // var lineLength = updateLineAndLength();
 
   // Send the screenshot to PHP to save it on the server
   var url = saveScript;
@@ -99,17 +97,7 @@ function saveCanvas() {
     url: url,
     dataType: "text",
     data: {
-      id: MID,
-      trial: trialnumber,
-      score: score,
-      distance_inline: distance_inline,
-      distance_offline: distance_offline,
-      timeDiff: timeDiff,
-      crossings: crossings,
-      base64data: data,
-      finished: finished,
-      sessionScores: sessionScores,
-      sessionRts: sessionRts,
+      line_length: lineLengthOnMouseUp,
     },
   });
 }
