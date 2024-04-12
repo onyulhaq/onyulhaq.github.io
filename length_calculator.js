@@ -23,8 +23,9 @@ function do_line_length() {
   const getClientOffset = (event) => {
     const { pageX, pageY } = event.touches ? event.touches[0] : event;
     event.touches;
-    const x = pageX - canvas.offsetLeft;
-    const y = pageY - canvas.offsetTop;
+    console.log(pageX);
+    const x = event.pageX - canvas.offsetLeft;
+    const y = event.pageY - canvas.offsetTop;
     console.log(x, y);
 
     return {
