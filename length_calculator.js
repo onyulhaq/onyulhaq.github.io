@@ -1,6 +1,7 @@
 function do_line_length() {
   //drawing contexts for cursor area and mirrored area
   canvas = document.querySelector("#draw_line");
+  var saveScript = "https://calin-jageman.net/mirror_trace/save.php";
 
   ctx = canvas.getContext("2d");
 
