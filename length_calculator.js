@@ -1,103 +1,105 @@
-//drawing contexts for cursor area and mirrored area
-canvas = document.querySelector("#draw_line");
+function do_line_length() {
+  //drawing contexts for cursor area and mirrored area
+  canvas = document.querySelector("#draw_line");
 
-ctx = canvas.getContext("2d");
+  ctx = canvas.getContext("2d");
 
-//Function to record mousemovement and draw line
-let startPosition = { x: 0, y: 0 };
-let lineCoordinates = { x: 0, y: 0 };
-let isDrawStart = false;
+  //Function to record mousemovement and draw line
+  let startPosition = { x: 0, y: 0 };
+  let lineCoordinates = { x: 0, y: 0 };
+  let isDrawStart = false;
 
-// Variable to store the length of the line
-let lineLength = 0;
+  // Variable to store the length of the line
+  let lineLength = 0;
 
-// Global variable to store line length
-let lineLengthOnMouseUp = 0;
-// Function to calculate distance between two points
-const calculateDistance = (point1, point2) => {
-  return Math.sqrt((point2.x - point1.x) ** 2 + (point2.y - point1.y) ** 2);
-};
-
-const getClientOffset = (event) => {
-  const { pageX, pageY } = event.touches ? event.touches[0] : event;
-  event.touches;
-  const x = pageX - canvas.offsetLeft;
-  const y = pageY - canvas.offsetTop;
-
-  return {
-    x,
-    y,
+  // Global variable to store line length
+  let lineLengthOnMouseUp = 0;
+  // Function to calculate distance between two points
+  const calculateDistance = (point1, point2) => {
+    return Math.sqrt((point2.x - point1.x) ** 2 + (point2.y - point1.y) ** 2);
   };
-};
 
-const drawLine = () => {
-  ctx.beginPath();
-  ctx.moveTo(startPosition.x, startPosition.y);
-  ctx.lineTo(lineCoordinates.x, lineCoordinates.y);
-  ctx.stroke();
-};
+  const getClientOffset = (event) => {
+    const { pageX, pageY } = event.touches ? event.touches[0] : event;
+    event.touches;
+    const x = pageX - canvas.offsetLeft;
+    const y = pageY - canvas.offsetTop;
 
-const mouseDownListener = (event) => {
-  startPosition = getClientOffset(event);
-  isDrawStart = true;
-};
+    return {
+      x,
+      y,
+    };
+  };
 
-const mouseMoveListener = (event) => {
-  if (!isDrawStart) return;
+  const drawLine = () => {
+    ctx.beginPath();
+    ctx.moveTo(startPosition.x, startPosition.y);
+    ctx.lineTo(lineCoordinates.x, lineCoordinates.y);
+    ctx.stroke();
+  };
 
-  lineCoordinates = getClientOffset(event);
-  clearCanvas();
-  updateLineAndLength();
-};
+  const mouseDownListener = (event) => {
+    startPosition = getClientOffset(event);
+    isDrawStart = true;
+  };
 
-const mouseupListener = (event) => {
-  isDrawStart = false;
-  // Update line length when mouse is lifted
-  lineLengthOnMouseUp = updateLineAndLength();
-};
+  const mouseMoveListener = (event) => {
+    if (!isDrawStart) return;
 
-const clearCanvas = () => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-};
+    lineCoordinates = getClientOffset(event);
+    clearCanvas();
+    updateLineAndLength();
+  };
 
-canvas.addEventListener("mousedown", mouseDownListener);
-canvas.addEventListener("mousemove", mouseMoveListener);
-canvas.addEventListener("mouseup", mouseupListener);
+  const mouseupListener = (event) => {
+    isDrawStart = false;
+    // Update line length when mouse is lifted
+    lineLengthOnMouseUp = updateLineAndLength();
+  };
 
-canvas.addEventListener("touchstart", mouseDownListener);
-canvas.addEventListener("touchmove", mouseMoveListener);
-canvas.addEventListener("touchend", mouseupListener);
+  const clearCanvas = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  };
 
-// Function to update line length and draw line
-const updateLineAndLength = () => {
-  // Calculate the distance between start and current position
-  lineLength = calculateDistance(startPosition, lineCoordinates);
+  canvas.addEventListener("mousedown", mouseDownListener);
+  canvas.addEventListener("mousemove", mouseMoveListener);
+  canvas.addEventListener("mouseup", mouseupListener);
 
-  // Draw the line
-  drawLine();
+  canvas.addEventListener("touchstart", mouseDownListener);
+  canvas.addEventListener("touchmove", mouseMoveListener);
+  canvas.addEventListener("touchend", mouseupListener);
 
-  //   // Output the length of the line (you can display it wherever you want)
-  console.log(lineLength);
+  // Function to update line length and draw line
+  const updateLineAndLength = () => {
+    // Calculate the distance between start and current position
+    lineLength = calculateDistance(startPosition, lineCoordinates);
 
-  return lineLength;
-  //   console.log("Length of the line:", lineLength);
-};
+    // Draw the line
+    drawLine();
 
-// /https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseup_event
+    //   // Output the length of the line (you can display it wherever you want)
+    console.log(lineLength);
 
-function saveCanvas() {
-  // Get the line length by calling updateLineAndLength function
-  // var lineLength = updateLineAndLength();
+    return lineLength;
+    //   console.log("Length of the line:", lineLength);
+  };
 
-  // Send the screenshot to PHP to save it on the server
-  var url = saveScript;
+  // /https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseup_event
 
-  jQuery.ajax({
-    type: "POST",
-    url: url,
-    dataType: "text",
-    data: {
-      line_length: lineLengthOnMouseUp,
-    },
-  });
+  function saveCanvas() {
+    // Get the line length by calling updateLineAndLength function
+    // var lineLength = updateLineAndLength();
+
+    // Send the screenshot to PHP to save it on the server
+    var url = saveScript;
+
+    jQuery.ajax({
+      type: "POST",
+      url: url,
+      dataType: "text",
+      data: {
+        line_length: lineLengthOnMouseUp,
+      },
+    });
+  }
 }
