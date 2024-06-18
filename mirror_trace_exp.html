@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="Length_box">
+      <canvas
+        id="draw_line"
+        width="400"
+        height="300"
+        style="border: 1px solid #000000"
+      ></canvas>
+    </div>
+    <div id="sketch" oncontextmenu="return false">
+      <canvas
+        id="paint"
+        width="400"
+        height="300"
+        style="border: 1px solid #000000"
+      ></canvas>
+    </div>
+  </body>
+  <script src="mirror_trace_exp.js" type="text/javascript"></script>
+  <script>
+    // //define trialnumber
+    // trialnumber = 0;
+    //trial
+    var MID = "B1112";
+    do_mirror();
+  </script>
+  <audio id="myAudio">
+    <source src="beep.mp3" ,type="audio/mpeg">
+</html>

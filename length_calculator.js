@@ -1,92 +1,88 @@
-function do_line_length() {
-  var saveScript = "https://calin-jageman.net/mirror_trace/save.php";
-  //drawing contexts for cursor area and mirrored area
-  canvas = document.querySelector("#draw_line");
+let lineLengthOnMouseUp = 0;
+//drawing contexts for cursor area and mirrored area
+canvas = document.querySelector("#draw_line");
 
-  ctx = canvas.getContext("2d");
+ctx = canvas.getContext("2d");
 
-  //Function to record mousemovement and draw line
-  let startPosition = { x: 0, y: 0 };
-  let lineCoordinates = { x: 0, y: 0 };
-  let isDrawStart = false;
+//Function to record mousemovement and draw line
+let startPosition = { x: 0, y: 0 };
+let lineCoordinates = { x: 0, y: 0 };
+let isDrawStart = false;
 
-  // Variable to store the length of the line
-  let lineLength = 0;
+// Variable to store the length of the line
+let lineLength = 0;
 
-  // Global variable to store line length
-  let lineLengthOnMouseUp = 0;
-  // Function to calculate distance between two points
-  const calculateDistance = (point1, point2) => {
-    return Math.sqrt((point2.x - point1.x) ** 2 + (point2.y - point1.y) ** 2);
+// Global variable to store line length
+
+// Function to calculate distance between two points
+const calculateDistance = (point1, point2) => {
+  return Math.sqrt((point2.x - point1.x) ** 2 + (point2.y - point1.y) ** 2);
+};
+
+const getClientOffset = (event) => {
+  const rect = canvas.getBoundingClientRect(); // get the size of the canvas and its position relative to the viewport
+  const x = event.clientX - rect.left; // calculate the x coordinate relative to the canvas
+  const y = event.clientY - rect.top; // calculate the y coordinate relative to the canvas
+
+  return {
+    x,
+    y,
   };
+};
 
-  const getClientOffset = (event) => {
-    const rect = canvas.getBoundingClientRect(); // get the size of the canvas and its position relative to the viewport
-    const x = event.clientX - rect.left; // calculate the x coordinate relative to the canvas
-    const y = event.clientY - rect.top; // calculate the y coordinate relative to the canvas
+const drawLine = () => {
+  ctx.beginPath();
+  ctx.moveTo(startPosition.x, startPosition.y);
+  ctx.lineTo(lineCoordinates.x, lineCoordinates.y);
+  ctx.stroke();
+};
 
-    console.log(x, y);
+const mouseDownListener = (event) => {
+  startPosition = getClientOffset(event);
+  isDrawStart = true;
+};
 
-    return {
-      x,
-      y,
-    };
-  };
+const mouseMoveListener = (event) => {
+  if (!isDrawStart) return;
 
-  const drawLine = () => {
-    ctx.beginPath();
-    ctx.moveTo(startPosition.x, startPosition.y);
-    ctx.lineTo(lineCoordinates.x, lineCoordinates.y);
-    ctx.stroke();
-  };
+  lineCoordinates = getClientOffset(event);
+  clearCanvas();
+  updateLineAndLength();
+};
 
-  const mouseDownListener = (event) => {
-    startPosition = getClientOffset(event);
-    isDrawStart = true;
-  };
+const mouseupListener = (event) => {
+  isDrawStart = false;
+  // Update line length when mouse is lifted
+  lineLengthOnMouseUp = updateLineAndLength();
+  // console.log(lineLengthOnMouseUp);
+};
 
-  const mouseMoveListener = (event) => {
-    if (!isDrawStart) return;
+const clearCanvas = () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+};
 
-    lineCoordinates = getClientOffset(event);
-    clearCanvas();
-    updateLineAndLength();
-  };
+// Function to update line length and draw line
+const updateLineAndLength = () => {
+  // Calculate the distance between start and current position
+  lineLength = calculateDistance(startPosition, lineCoordinates);
 
-  const mouseupListener = (event) => {
-    isDrawStart = false;
-    // Update line length when mouse is lifted
-    lineLengthOnMouseUp = updateLineAndLength();
-    console.log(lineLengthOnMouseUp);
-  };
+  // Draw the line
+  drawLine();
 
-  const clearCanvas = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  };
+  //   // Output the length of the line (you can display it wherever you want)
 
-  // Function to update line length and draw line
-  const updateLineAndLength = () => {
-    // Calculate the distance between start and current position
-    lineLength = calculateDistance(startPosition, lineCoordinates);
+  return lineLength;
+  //   console.log("Length of the line:", lineLength);
+};
 
-    // Draw the line
-    drawLine();
+// /https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseup_event
+console.log(lineLengthOnMouseUp);
 
-    //   // Output the length of the line (you can display it wherever you want)
+//https://community.qualtrics.com/custom-code-12/drawing-boxes-on-images-18069?postid=44365#post44365
 
-    return lineLength;
-    //   console.log("Length of the line:", lineLength);
-  };
-
-  // /https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseup_event
-
-  //https://community.qualtrics.com/custom-code-12/drawing-boxes-on-images-18069?postid=44365#post44365
-
-  canvas.addEventListener("mousedown", mouseDownListener);
-  canvas.addEventListener("mousemove", mouseMoveListener);
-  canvas.addEventListener("mouseup", mouseupListener);
-
-  canvas.addEventListener("touchstart", mouseDownListener);
-  canvas.addEventListener("touchmove", mouseMoveListener);
-  canvas.addEventListener("touchend", mouseupListener);
-}
+canvas.addEventListener("mousedown", mouseDownListener);
+canvas.addEventListener("mousemove", mouseMoveListener);
+canvas.addEventListener("mouseup", mouseupListener);
+canvas.addEventListener("touchstart", mouseDownListener);
+canvas.addEventListener("touchmove", mouseMoveListener);
+canvas.addEventListener("touchend", mouseupListener);
