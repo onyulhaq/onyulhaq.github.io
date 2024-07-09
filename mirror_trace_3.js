@@ -166,7 +166,7 @@ function do_mirror() {
   var xend = materials.xends[trialnumber];
 
   // Radius of start green circle
-  var startRadius = 5;
+  var startRadius = 3;
 
   //Radius of end red circle
   var endRadius = 7;
